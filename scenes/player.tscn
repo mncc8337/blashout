@@ -1,20 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cs0scqiespkx4"]
+[gd_scene load_steps=2 format=3 uid="uid://cs0scqiespkx4"]
 
-[ext_resource type="Texture2D" uid="uid://dkkujqnx7lgot" path="res://icon.svg" id="1_3eaft"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_kgmdb"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w51hv"]
-size = Vector2(64, 64)
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_kgmdb")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0.235294, 0.286275, 1)
+polygon = PackedVector2Array(-26, 0, 8, -15, 0, -1, 7, 15)
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_3eaft")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_w51hv")
+[node name="Polygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-26, 0, 8, -15, 0, -1, 7, 15)
