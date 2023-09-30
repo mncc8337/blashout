@@ -61,6 +61,22 @@ texture = ExtResource("2_yr8mj")
 offset = Vector2(1500, 0)
 height = 1000.0
 
+[node name="ray0" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 0)
+
+[node name="ray1" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -500)
+
+[node name="ray2" type="RayCast2D" parent="flashlight"]
+scale = Vector2(1, 1)
+target_position = Vector2(3000, 500)
+
+[node name="ray3" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -250)
+
+[node name="ray4" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 250)
+
 [node name="vision" type="PointLight2D" parent="."]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("3_gigwj")
