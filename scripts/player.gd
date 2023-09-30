@@ -12,7 +12,6 @@ func sign(x):
 	return 1
 
 func _physics_process(delta):
-	
 	if Input.is_action_pressed("up"):
 		velocity.y -= SPEED
 		dir += Vector2(0, -1)
@@ -35,14 +34,25 @@ func _physics_process(delta):
 	if move_on_x and move_on_y:
 		new_rot /= 2
 
+	var current_rot = rotation_degrees
+
 	if not move_on_x and not move_on_y:
 		new_rot = last_rot
 
 	if Input.is_action_pressed("down") and Input.is_action_pressed("left"):
-		new_rot += 180	
+		new_rot += 180
+	if current_rot <= 0 and current_rot > -180 and new_rot >= 0 and new_rot <= 90:
+		new_rot += 360.0
+	if current_rot < 90 and current_rot >= 0 and new_rot >= 270 and new_rot <= 360:
+		new_rot -= 360.0
+		
 	last_rot = new_rot
 
-	rotation_degrees = new_rot
+	if current_rot < 0:
+		current_rot += 360
+	current_rot = lerp(current_rot, new_rot, 0.35)
+	print(current_rot)
+	rotation_degrees = current_rot
 	
 	velocity *= 1 - FRICTION
 
