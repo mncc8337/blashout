@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://biy8681uytdb"]
+[gd_scene load_steps=5 format=3 uid="uid://biy8681uytdb"]
 
 [sub_resource type="Gradient" id="Gradient_0c3kj"]
 colors = PackedColorArray(1, 0, 0.14902, 1, 0.603922, 0.309804, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0o0ah"]
 gradient = SubResource("Gradient_0c3kj")
+width = 1
+height = 1
 fill_to = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gp42o"]
-size = Vector2(64, 64)
+size = Vector2(1, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ggehi"]
+polygon = PackedVector2Array(0, -1, 1, -1, 1, 0, 0, 0)
 
 [node name="wall" type="StaticBody2D"]
 
@@ -17,3 +22,7 @@ texture = SubResource("GradientTexture2D_0o0ah")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_gp42o")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(-0.5, 0.5)
+occluder = SubResource("OccluderPolygon2D_ggehi")
