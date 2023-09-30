@@ -33,8 +33,7 @@ func _physics_process(delta):
 		dir += Vector2(-1, 0)
 	if Input.is_action_pressed("right"):
 		dir += Vector2(1, 0)
-	if Input.is_action_just_pressed("run"):
-		is_running = !is_running
+	is_running = Input.is_action_pressed("run")
 	dir = dir.normalized()
 	
 	if is_exhauted:
@@ -51,7 +50,7 @@ func _physics_process(delta):
 			is_exhauted = false
 	if is_running and dir != Vector2.ZERO:
 		if stamina > 0:
-			stamina -= 0.25
+			stamina -= 0.5
 		else:
 			is_exhauted = true
 			stamina = 0

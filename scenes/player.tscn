@@ -54,30 +54,27 @@ occluder = SubResource("OccluderPolygon2D_g4b7h")
 [node name="flashlight" type="PointLight2D" parent="."]
 position = Vector2(-25, -16)
 rotation = 3.14159
-scale = Vector2(0.152, 0.11)
+scale = Vector2(0.47, 0.63)
+energy = 1.5
 range_z_max = 3000
 shadow_enabled = true
 texture = ExtResource("2_yr8mj")
 offset = Vector2(1500, 0)
 height = 1000.0
 
-[node name="ray0" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 0)
-
-[node name="ray1" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -500)
-
-[node name="ray2" type="RayCast2D" parent="flashlight"]
-scale = Vector2(1, 1)
-target_position = Vector2(3000, 500)
-
-[node name="ray3" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -250)
-
-[node name="ray4" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 250)
-
 [node name="vision" type="PointLight2D" parent="."]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("3_gigwj")
 texture_scale = 2.5
+
+[node name="Light (debug only)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-730, -16)
+rotation = 3.14159
+scale = Vector2(0.47, 0.63)
+texture = ExtResource("2_yr8mj")
+
+[node name="lightarea" type="Area2D" parent="."]
+
+[node name="light_collision_lol" type="CollisionPolygon2D" parent="lightarea"]
+polygon = PackedVector2Array(-1435, -331, -1435, 299, -1429, 299, -25, -3, -25, -30, -1423, -331)
