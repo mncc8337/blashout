@@ -23,8 +23,13 @@ func _ready():
 
 func on_being_attacked(damage):
 	health -= damage
+	if health <= 0:
+		$"../../main".died.emit()
+		get_tree().paused = true
 
 func _physics_process(delta):
+	if health <= 0: return
+
 	var dir = Vector2.ZERO
 	var speed_multiplier = 1
 	if Input.is_action_pressed("up"):
@@ -43,7 +48,6 @@ func _physics_process(delta):
 		speed_multiplier = clamp((stamina + 10) / 100, 0, 1)
 	if is_running:
 		speed_multiplier = 2.5
-	print(delta)
 	velocity += dir.normalized() * SPEED * speed_multiplier * delta
 	
 	if dir == Vector2.ZERO or speed_multiplier < 0.5:

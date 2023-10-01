@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=16 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_cbocj"]
 [ext_resource type="PackedScene" path="res://scenes/blck.tscn" id="4_661in"]
@@ -40,7 +41,11 @@ bg_color = Color(0, 0.333333, 1, 0.392157)
 [sub_resource type="Theme" id="Theme_bctt7"]
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_5w0yb")
 
+[sub_resource type="LabelSettings" id="LabelSettings_ksbp5"]
+font_size = 64
+
 [node name="main" type="Node2D"]
+script = ExtResource("1_s6gpx")
 
 [node name="background" type="Polygon2D" parent="."]
 position = Vector2(0, -3)
@@ -151,3 +156,23 @@ position = Vector2(557, 327)
 
 [node name="foe3" parent="foes" instance=ExtResource("5_2h47a")]
 position = Vector2(501, 550)
+
+[node name="death_UI" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="Label" type="Label" parent="death_UI"]
+offset_top = 100.0
+offset_right = 1152.0
+offset_bottom = 191.0
+text = "u died lmao"
+label_settings = SubResource("LabelSettings_ksbp5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="death_UI"]
+offset_left = 482.0
+offset_top = 290.0
+offset_right = 711.0
+offset_bottom = 370.0
+text = "pls let me try again"
