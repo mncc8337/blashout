@@ -13,17 +13,20 @@ var current_dir = Vector2(1, 0)
 var is_running = false
 
 @export var audio_stream: AudioStream
-@export var max_attack_dmg:float = 1
+@export var max_attack_dmg:float = 10
 @export var healing_time:float = 30
 @export var max_health:float = 100
+@export var max_stamina:float = 100
 var attack_dmg:float
 var health:float = 100
 var stamina:float = 100
 var is_exhausted = false
 var furious:bool = false
+var tomb_raider:bool = false
 
 func _ready():
 	health = max_health
+	stamina = max_stamina
 	
 	viewport = get_viewport()
 	camera = viewport.get_camera_2d()
@@ -42,7 +45,7 @@ func walking_sound():
 	ASP.play()
 
 func heal():
-	health = clamp(health + 5, 0, 100)
+	health = clamp(health + 5, 0, max_health)
 
 func on_being_attacked(damage):
 	health -= damage
@@ -67,14 +70,14 @@ func _physics_process(delta):
 	
 	if is_exhausted:
 		is_running = false
-		speed_multiplier = clamp((stamina + 10) / 100, 0, 1)
+		speed_multiplier = clamp((stamina + 10) / max_stamina, 0, 1)
 	if is_running:
 		speed_multiplier = 2.5
 	velocity += dir.normalized() * SPEED * speed_multiplier * delta
 
 	if dir == Vector2.ZERO or speed_multiplier < 0.5:
-		if stamina < 100:
-			stamina += 0.25
+		if stamina < max_stamina:
+			stamina = clamp(stamina + 0.25, 0, max_stamina)
 		else:
 			is_exhausted = false
 	if is_running and dir != Vector2.ZERO:
@@ -103,6 +106,8 @@ func _physics_process(delta):
 				ray.add_exception(obj)
 				ray.force_raycast_update()
 			else:
+				if obj.is_in_group("grave") and tomb_raider:
+					objects_collide.append(obj)
 				break
 		var dmg_multiplier = 1
 		for obj in objects_collide:

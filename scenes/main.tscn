@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=17 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Texture2D" uid="uid://dcw76xm15b1e7" path="res://imgs/skillimg.png" id="5_boj1d"]
+[ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="5_lssb2"]
+[ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -52,30 +54,50 @@ position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-172, -101, 1252, -103, 1234, 731, -168, 715)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0, 0, 0, 1)
+[node name="WallSide1" type="Sprite2D" parent="."]
+position = Vector2(-78, 360)
+scale = Vector2(0.242761, 0.457236)
+texture = ExtResource("5_lssb2")
+
+[node name="WallSide2" type="Sprite2D" parent="."]
+position = Vector2(1433, 402)
+rotation = 3.14159
+scale = Vector2(0.213372, -0.457236)
+texture = ExtResource("5_lssb2")
+
+[node name="Wall" type="Sprite2D" parent="."]
+position = Vector2(755, -13)
+scale = Vector2(0.862384, 0.343628)
+texture = ExtResource("6_5xogt")
+
+[node name="Wall2" type="Sprite2D" parent="."]
+position = Vector2(702, 801)
+scale = Vector2(0.77402, -0.316605)
+texture = ExtResource("6_5xogt")
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
 position = Vector2(683, 384)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
 
 [node name="walls" type="Node2D" parent="."]
 scale = Vector2(1.00136, 0.998738)
 
 [node name="wall" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(0, 384)
+position = Vector2(51.9294, 384)
 scale = Vector2(1, 768)
 
 [node name="wall2" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(1366, 384)
+position = Vector2(1320.2, 384)
 scale = Vector2(1, 768)
 
 [node name="wall3" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(683, 0)
+position = Vector2(683, 79.0998)
 scale = Vector2(1366, 1e-05)
 
 [node name="wall4" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(683, 768)
+position = Vector2(688.064, 715.906)
 scale = Vector2(1366, 1e-05)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -140,10 +162,11 @@ offset_right = 711.0
 offset_bottom = 370.0
 text = "pls let me try again"
 
-[node name="skill_board" type="CanvasLayer" parent="."]
+[node name="skill_panel" type="CanvasLayer" parent="."]
+process_mode = 3
 visible = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="skill_board"]
+[node name="HBoxContainer" type="HBoxContainer" parent="skill_panel"]
 anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.1
@@ -152,11 +175,11 @@ anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="skill_board/HBoxContainer"]
+[node name="Panel" type="Panel" parent="skill_panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -169,19 +192,19 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+[node name="Label" type="Label" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "skill 1"
 label_settings = SubResource("LabelSettings_nixyl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_boj1d")
 stretch_mode = 3
 
-[node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+[node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 label_settings = SubResource("LabelSettings_uawwg")
@@ -189,16 +212,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button" type="Button" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+[node name="Button" type="Button" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "select"
 
-[node name="Panel2" type="Panel" parent="skill_board/HBoxContainer"]
+[node name="Panel2" type="Panel" parent="skill_panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel2"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -211,19 +234,19 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+[node name="Label" type="Label" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 text = "skill 1"
 label_settings = SubResource("LabelSettings_nixyl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_boj1d")
 stretch_mode = 3
 
-[node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+[node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet"
 label_settings = SubResource("LabelSettings_uawwg")
@@ -231,16 +254,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button" type="Button" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+[node name="Button" type="Button" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "select"
 
-[node name="Panel3" type="Panel" parent="skill_board/HBoxContainer"]
+[node name="Panel3" type="Panel" parent="skill_panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel3"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -253,19 +276,19 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+[node name="Label" type="Label" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
 text = "skill 1"
 label_settings = SubResource("LabelSettings_nixyl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_boj1d")
 stretch_mode = 3
 
-[node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+[node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.nsectetur adipiscing elit, sed do eiusmod tempor incididunt ut."
 label_settings = SubResource("LabelSettings_uawwg")
@@ -273,7 +296,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Button" type="Button" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+[node name="Button" type="Button" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "select"
@@ -281,5 +304,6 @@ text = "select"
 [node name="foe_spawn_timer" type="Timer" parent="."]
 
 [node name="wave_start_timer" type="Timer" parent="."]
+wait_time = 7.0
 one_shot = true
 autostart = true

@@ -1,0 +1,130 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc2yqyeynwtq4"]
+
+[ext_resource type="Script" path="res://scripts/foe.gd" id="1_4xd2n"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_p1j4g"]
+cull_mode = 2
+polygon = PackedVector2Array(-4.11125, 6.04595, -4.11125, -1.9347, -3.14389, -2.90206, 2.17654, -2.90206, 2.90206, -1.9347, 2.90206, 6.04595)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhm6t"]
+bg_color = Color(1, 0.117647, 0.137255, 0.74902)
+
+[sub_resource type="Theme" id="Theme_7fvyk"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_uhm6t")
+
+[node name="grave" type="CharacterBody2D" groups=["grave"]]
+position = Vector2(2, -5)
+scale = Vector2(4.135, 4.135)
+motion_mode = 1
+slide_on_ceiling = false
+wall_min_slide_angle = 0.0
+floor_stop_on_slope = false
+floor_block_on_wall = false
+platform_on_leave = 2
+script = ExtResource("1_4xd2n")
+SPEED = 0.0
+max_health = 1000.0
+attack_dmg = 0
+attack_range = 0
+attack_cooldown = 0.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.372549, 0.372549, 0.372549, 1)
+polygon = PackedVector2Array(2.17654, -2.90206, 3, -2, 2.90206, 6.04595, -4, 6, -4, -2, -3, -3)
+
+[node name="Polygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(2.17654, -2.90206, 3, -2, 2.90206, 6.04595, -4, 6, -4, -2, -3, -3)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D"]
+position = Vector2(-0.967352, 0.241838)
+scale = Vector2(0.588235, 1)
+color = Color(0.129412, 0.129412, 0.129412, 1)
+polygon = PackedVector2Array(1.6445, -2.17654, 1.69287, -1.69287, -2.41838, -1.69287, -2.46675, -2.17654)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Node2D"]
+position = Vector2(0.680326, 0)
+scale = Vector2(0.16955, 1)
+color = Color(0.129412, 0.129412, 0.129412, 1)
+polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.45103, -2.58618, -1.45103, -2.41838, -1.9347)
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2(-2.41838, -2.41838)
+rotation = -3.14159
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D2"]
+position = Vector2(-0.995803, 0)
+scale = Vector2(0.588235, 1)
+color = Color(0.243137, 0.243137, 0.243137, 1)
+polygon = PackedVector2Array(1.69286, -2.17654, 1.69287, -1.69287, -2.41838, -1.69287, -2.41838, -2.17654)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Node2D2"]
+position = Vector2(0.680326, 0)
+scale = Vector2(0.16955, 1)
+color = Color(0.309804, 0.309804, 0.309804, 1)
+polygon = PackedVector2Array(1.69286, -2.17654, 1.69287, -1.69287, -2.41838, -1.69287, -2.58619, -2.17654)
+
+[node name="Node2D3" type="Node2D" parent="."]
+position = Vector2(-0.967352, 1.9347)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D3"]
+position = Vector2(-0.995803, 0)
+scale = Vector2(0.588235, 1)
+color = Color(0.243137, 0.243137, 0.243137, 1)
+polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.45103, -2.41838, -1.45103, -2.41838, -1.9347)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Node2D3"]
+position = Vector2(0.680326, 0)
+scale = Vector2(0.16955, 1)
+color = Color(0.309804, 0.309804, 0.309804, 1)
+polygon = PackedVector2Array(4.54557, -1.9347, 4.54557, -1.45103, -2.58618, -1.45103, -2.41838, -1.9347)
+
+[node name="Node2D4" type="Node2D" parent="."]
+position = Vector2(-0.725513, -0.483675)
+rotation = -3.14159
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D4"]
+position = Vector2(-0.995803, 0)
+scale = Vector2(0.588235, 1)
+color = Color(0.243137, 0.243137, 0.243137, 1)
+polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.45103, -2.41838, -1.45103, -2.41838, -1.9347)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Node2D4"]
+position = Vector2(0.680326, 0)
+scale = Vector2(0.16955, 1)
+color = Color(0.309804, 0.309804, 0.309804, 1)
+polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.45103, -2.58618, -1.45103, -2.41838, -1.9347)
+
+[node name="Node2D5" type="Node2D" parent="."]
+position = Vector2(0.725514, 3.62757)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Node2D5"]
+position = Vector2(-0.995803, 0)
+scale = Vector2(0.588235, 1)
+color = Color(0.243137, 0.243137, 0.243137, 1)
+polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.45103, -2.41838, -1.45103, -2.41838, -1.9347)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Node2D5"]
+position = Vector2(0.680326, 0)
+scale = Vector2(0.16955, 1)
+color = Color(0.309804, 0.309804, 0.309804, 1)
+polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.20919, -2.58618, -1.20919, -2.41838, -1.9347)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_p1j4g")
+
+[node name="healthbar" type="ProgressBar" parent="."]
+offset_left = -7.73881
+offset_top = -6.28779
+offset_right = 7.26119
+offset_bottom = -2.28779
+scale = Vector2(1, 0.495)
+theme = SubResource("Theme_7fvyk")
+step = 0.001
+value = 33.0
+show_percentage = false
+
+[node name="attack_cooldown" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true

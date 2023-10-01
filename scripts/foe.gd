@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 signal being_attacked(damage)
 
-var SPEED = 600.0
+@export var SPEED = 600.0
 @export var max_health:float = 100
 var health = 100.0
 @export var attack_dmg = 10
 @export var attack_range = 50 # in px
 @export var attack_cooldown = 1.5
-@onready var player = $"../../player"
+@onready var player = get_tree().get_root().get_node("main/player")
 var die = false
 
 var sqr_attack_range
@@ -26,18 +26,22 @@ func receive_damage(damage):
 	if die:
 		return
 
-	health -= damage
+	if is_in_group("foe"):
+		health -= damage
+	else:
+		health -= 0.1
 	if health <= 0:
-		#do sth before this
-		var main = $"../../../main"
-		var rnd = main.rng.randi_range(1, 100)
-		if rnd < 10:
-			var block_instance = main.block_model.instantiate()
-			block_instance.position = position
-			main.add_child(block_instance)
-		main.foe_killed += 1
-		main.foe_killed_total += 1
-		die = true
+		if is_in_group("foe"):
+			#do sth before this
+			var main = get_tree().get_root().get_node("main")
+			var rnd = main.rng.randi_range(1, 100)
+			if rnd < 25:
+				var grave = main.grave_model.instantiate()
+				grave.position = position
+				main.add_child(grave)
+			main.foe_killed += 1
+			main.foe_killed_total += 1
+			die = true
 		self.queue_free()
 		return
 
@@ -50,11 +54,6 @@ func _physics_process(delta):
 	var a_direction = player_pos - self.global_position
 	velocity = a_direction.normalized() * SPEED * delta
 
-	#flips foes' sprite based on player position
-	if a_direction.x > 0:
-		$Sprite2D.global_transform.x = Vector2(-3,0)
-	else:
-		$Sprite2D.global_transform.x = Vector2(3,0)
 	move_and_slide()
 	
 	# after move check if can attack
