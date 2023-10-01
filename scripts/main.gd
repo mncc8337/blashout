@@ -62,7 +62,7 @@ func fetch_skill(skill):
 	elif skill == SKILL.TOMB_RAIDER:
 		info[0] = "tomb raider"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "remove graves by point light at it (it takes time)"
+		info[2] = "remove graves by pointing light at it (it takes time)"
 
 	return info
 
