@@ -40,9 +40,12 @@ func _physics_process(delta):
 	var player_pos = player.global_position
 	var a_direction = player_pos - self.global_position
 	velocity = a_direction.normalized() * SPEED * delta
+
 	#flips foes' sprite based on player position
-	if a_direction.x > 0:self.global_transform.x = Vector2(-3,0)
-	else: self.global_transform.x = Vector2(3,0)
+	if a_direction.x > 0:
+		$Sprite2D.global_transform.x = Vector2(-3,0)
+	else:
+		$Sprite2D.global_transform.x = Vector2(3,0)
 	move_and_slide()
 	
 	# after move check if can attack
