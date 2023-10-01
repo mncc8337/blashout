@@ -2,6 +2,8 @@ extends CharacterBody2D
 @onready var main = get_tree().get_root().get_node("main")
 
 signal someone_attack_me_help(damage)
+
+const SPEED = 600.0
 const FRICTION = 0.1
 
 var viewport
@@ -10,7 +12,6 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
-@export var SPEED:float = 600.0
 @export var audio_stream: AudioStream
 @export var max_attack_dmg:float = 10
 @export var healing_time:float = 30
@@ -87,7 +88,8 @@ func _physics_process(delta):
 			stamina = 0
 		
 	if dir == Vector2.ZERO or !is_running or furious:
-		look_at(viewport.get_mouse_position())
+		var rat = (viewport.get_size() * 1.0 - Vector2(1366, 768))
+		look_at(viewport.get_mouse_position() - rat / 2) # idk why but it works lol
 	else:
 		current_dir = current_dir.lerp(dir, 0.5)
 		look_at(current_dir + position)

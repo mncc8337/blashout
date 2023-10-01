@@ -3,9 +3,10 @@ extends Node2D
 signal died
 
 var rng = RandomNumberGenerator.new()
-
+var bump_counter = 0
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
+@onready var spdbump_model = preload("res://scenes/blck.tscn")
 var foe_attack_dmg_max:float = 10
 var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
@@ -19,10 +20,9 @@ var current_foe_count_max:int = 20
 var wave_count:int = 1
 
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
-enum SKILL {CAT_VISION, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, FURIOUS, TOMB_RAIDER, EARTH_QUAKE, WITCH}
+enum SKILL {CAT_VISION, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, FURIOUS, TOMB_RAIDER}
 
-var skilllist = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-var skill_goal:int = 10
+var skilllist = [0, 1, 2, 3, 4, 5, 6]
 
 var panel1_label
 var panel1_img
@@ -43,15 +43,15 @@ func fetch_skill(skill):
 	elif skill == SKILL.STRONGER_LIGHT:
 		info[0] = "stronger light"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your damage to ghost by 5%"
+		info[2] = "increase your damage to ghost by 10%"
 	elif skill == SKILL.LARGER_LIGHT:
-		info[0] = "larger light"
+		info[0] = "wider light"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "make your light reach 5% further"
+		info[2] = "make your light reach 7% further"
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your stamina and your base speed by 5%"
+		info[2] = "increase your stamina and your base speed by 7%"
 	elif skill == SKILL.MEDIC:
 		info[0] = "medic"
 		info[1] = "res://imgs/skillimg.png"
@@ -64,14 +64,6 @@ func fetch_skill(skill):
 		info[0] = "tomb raider"
 		info[1] = "res://imgs/skillimg.png"
 		info[2] = "remove graves by pointing light at it (it takes time)"
-	elif skill == SKILL.EARTH_QUAKE:
-		info[0] = "earth quake"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "reduce the number of grave by 25%"
-	elif skill == SKILL.WITCH:
-		info[0] = "witch"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "instantly heal 25% of your health"
 
 	return info
 
@@ -82,9 +74,9 @@ func apply_skill(skill):
 			$player.get_node("vision").texture_scale = 15
 			skilllist.erase(SKILL.CAT_VISION)
 	elif skill == SKILL.STRONGER_LIGHT:
-		$player.max_attack_dmg *= 1.05
+		$player.max_attack_dmg *= 1.1
 	elif skill == SKILL.LARGER_LIGHT:
-		$player.get_node("flashlight").scale.x *= 1.05
+		$player.get_node("flashlight").scale.x *= 1.07
 		if $player.get_node("flashlight").scale.x >= 0.5:
 			$player.get_node("flashlight").scale.x = 0.5
 			skilllist.erase(SKILL.LARGER_LIGHT)
@@ -102,19 +94,12 @@ func apply_skill(skill):
 	elif skill == SKILL.TOMB_RAIDER:
 		$player.tomb_raider = true
 		skilllist.erase(SKILL.TOMB_RAIDER)
-	elif skill == SKILL.EARTH_QUAKE:
-		var all_grave = $graves.get_children()
-		all_grave.shuffle()
-		var num = ceil(all_grave.size() * 0.25)
-		for i in num:
-			all_grave[i].queue_clear()
-	elif skill == SKILL.WITCH:
-		$player.health = clamp($player.health + 0.25 * $player.max_health, 0, $player.max_health)
 
 func choose_skill(x):
 	apply_skill(skilllist[x])
 	$skill_panel.visible = false
 	get_tree().paused = false
+	new_wave()
 
 func choose_skill1(): choose_skill(0)
 func choose_skill2(): choose_skill(1)
@@ -182,12 +167,11 @@ func spawn_foe():
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.9, 2.0)
 		foe_instance.SPEED = foe_speed_max * rng.randf_range(0.5, 0.7)
 		foe_instance.max_health = foe_health_max * rng.randf_range(0.9, 1.7)
-		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.7, 1)
+		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.3, 0.7)
 	elif foe_class == FOE_CLASS.ROACH:
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.3, 0.5)
-		foe_instance.SPEED = foe_speed_max * rng.randf_range(2, 4)
-		foe_instance.max_health = foe_health_max * rng.randf_range(0.3, 0.5)
-		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.5, 0.7)
+		foe_instance.SPEED = foe_speed_max * rng.randf_range(2, 5)
+		foe_instance.max_health = foe_health_max * rng.randf_range(0.3, 0.7)
 	$foes.add_child(foe_instance)
 	
 	foe_spawned += 1
@@ -209,6 +193,7 @@ func new_wave():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	$UI/healthbar.max_value = ceil($player.max_health)
 	$UI/healthbar.value = ceil($player.health)
 	$UI/staminabar.max_value = ceil($player.max_stamina)
@@ -225,10 +210,7 @@ func _process(delta):
 		$UI/info.text = str(current_foe_count_max - foe_killed) + '/' + str(current_foe_count_max) + " foe(s) remain"
 
 	if foe_killed == current_foe_count_max:
-		new_wave()
-	
-	if foe_killed_total == skill_goal:
-		skill_goal += 20
+		$speedbumpers/blck.queue_free()
 		get_tree().paused = true
 		
 		skilllist.shuffle()
@@ -249,3 +231,11 @@ func _process(delta):
 		panel3_img.texture = ImageTexture.create_from_image(Image.load_from_file(s3info[1]))
 		panel3_desc.text = s3info[2]
 		$skill_panel.visible = true
+	if bump_counter>16:return
+func _physics_process(delta):
+	var block_instance = spdbump_model.instantiate()
+	var random_pos = Vector2(rng.randi_range(1,48)*32,rng.randi_range(1,22)*32)
+	block_instance.position = random_pos
+	bump_counter+=1
+	$speedbumpers.add_child(block_instance)
+	if bump_counter > 16:block_instance.queue_free()
