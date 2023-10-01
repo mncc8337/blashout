@@ -9,7 +9,7 @@ bg_color = Color(1, 0.117647, 0.137255, 0.74902)
 [sub_resource type="Theme" id="Theme_ctdp7"]
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_uhm6t")
 
-[node name="foe" type="CharacterBody2D"]
+[node name="foe" type="CharacterBody2D" groups=["foe"]]
 position = Vector2(750, 448)
 scale = Vector2(3, 3)
 motion_mode = 1

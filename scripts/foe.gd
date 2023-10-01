@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal being_attacked(damage)
 
 var SPEED = 600.0
 var health = 100.0
@@ -13,6 +14,14 @@ var sqr_attack_range
 func _ready():
 	$attack_cooldown.wait_time = attack_cooldown
 	sqr_attack_range = attack_range * attack_range
+	
+	being_attacked.connect(receive_damage)
+
+func receive_damage(damage):
+	health -= damage
+	if health <= 0:
+		#do sth before this
+		self.queue_free()
 
 func _process(delta):
 	$healthbar.visible = health < 100

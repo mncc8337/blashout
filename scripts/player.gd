@@ -11,6 +11,7 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
+var attack_dmg = 0.5
 var health = 100
 var stamina = 100
 var is_exhausted = false
@@ -68,6 +69,11 @@ func _physics_process(delta):
 		current_dir = current_dir.lerp(dir, 0.5)
 		look_at(current_dir + position)
 	rotation += PI
+	
+	# after rotate, check if can attack
+	for body in $lightarea.get_overlapping_bodies():
+		if body.is_in_group("foe"):
+			body.being_attacked.emit(attack_dmg)
 	
 	velocity *= 1 - FRICTION
 
