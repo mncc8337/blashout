@@ -125,3 +125,6 @@ target_position = Vector2(3000, -375)
 
 [node name="ray8" type="RayCast2D" parent="flashlight"]
 target_position = Vector2(3000, 375)
+
+[node name="healing_timer" type="Timer" parent="."]
+autostart = true

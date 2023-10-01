@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=15 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_cbocj"]
 [ext_resource type="PackedScene" uid="uid://bdtknlk2qmu1v" path="res://scenes/blck.tscn" id="4_661in"]
-[ext_resource type="PackedScene" uid="uid://bycwegn7joe5n" path="res://scenes/foe.tscn" id="5_2h47a"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f5l68"]
 cull_mode = 1
@@ -53,7 +52,6 @@ color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
@@ -146,17 +144,9 @@ theme = SubResource("Theme_bctt7")
 text = "concu chim"
 
 [node name="block" parent="." instance=ExtResource("4_661in")]
-position = Vector2(651, 462)
+position = Vector2(634, 489)
 
 [node name="foes" type="Node" parent="."]
-
-[node name="foe" parent="foes" instance=ExtResource("5_2h47a")]
-
-[node name="foe2" parent="foes" instance=ExtResource("5_2h47a")]
-position = Vector2(557, 327)
-
-[node name="foe3" parent="foes" instance=ExtResource("5_2h47a")]
-position = Vector2(501, 550)
 
 [node name="death_UI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -179,4 +169,8 @@ offset_bottom = 370.0
 text = "pls let me try again"
 
 [node name="foe_spawn_timer" type="Timer" parent="."]
+autostart = true
+
+[node name="difficulty_timer" type="Timer" parent="."]
+wait_time = 30.0
 autostart = true

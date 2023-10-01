@@ -4,6 +4,7 @@ signal died
 
 var rng = RandomNumberGenerator.new()
 
+@export var difficulty_time:float = 30
 @export var foe_spawn_delay:float = 1
 @onready var foe_model = preload("res://scenes/foe.tscn")
 
@@ -14,6 +15,12 @@ func _ready():
 	
 	$foe_spawn_timer.wait_time = foe_spawn_delay
 	$foe_spawn_timer.timeout.connect(spawn_foe)
+	
+	$difficulty_timer.wait_time = difficulty_time
+	$difficulty_timer.timeout.connect(increase_diff)
+
+func increase_diff():
+	$foe_spawn_timer.wait_time *= 0.9
 
 func spawn_foe():
 	var foe_instance = foe_model.instantiate()

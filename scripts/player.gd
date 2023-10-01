@@ -11,10 +11,11 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
-@export var max_attack_dmg:float = 1
-var attack_dmg
-var health = 100
-var stamina = 100
+@export var max_attack_dmg:float = 3
+@export var healing_time:float = 30
+var attack_dmg:float
+var health:float = 100
+var stamina:float = 100
 var is_exhausted = false
 
 func _ready():
@@ -22,8 +23,12 @@ func _ready():
 	camera = viewport.get_camera_2d()
 	
 	attack_dmg = max_attack_dmg / $flashlight.get_child_count()
-	
 	someone_attack_me_help.connect(on_being_attacked)
+	$healing_timer.wait_time = healing_time
+	$healing_timer.timeout.connect(heal)
+
+func heal():
+	health = clamp(health + 5, 0, 100)
 
 func on_being_attacked(damage):
 	health -= damage
@@ -74,10 +79,22 @@ func _physics_process(delta):
 	
 	# after rotate, check if can attack
 	for ray in $flashlight.get_children():
-		var obj = ray.get_collider()
-		if obj != null:
+		var objects_collide = []
+		while ray.is_colliding():
+			var obj = ray.get_collider()
+			if obj == null:
+				break
 			if obj.is_in_group("foe"):
-				obj.being_attacked.emit(attack_dmg)
+				objects_collide.append(obj)
+				ray.add_exception(obj)
+				ray.force_raycast_update()
+			else:
+				break
+		var dmg_multiplier = 1
+		for obj in objects_collide:
+			obj.being_attacked.emit(attack_dmg * dmg_multiplier)
+			ray.remove_exception(obj)
+			dmg_multiplier *= 0.9
 	
 	velocity *= 1 - FRICTION
 
