@@ -1,11 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bycwegn7joe5n"]
+[gd_scene load_steps=5 format=3 uid="uid://bycwegn7joe5n"]
 
 [ext_resource type="Script" path="res://scripts/foe.gd" id="1_w5fsp"]
 [ext_resource type="Texture2D" uid="uid://d0ou6idyolsw" path="res://imgs/foe.png" id="2_1wkg2"]
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7oyap"]
-cull_mode = 2
-polygon = PackedVector2Array(-8, -8, 7, -8, 7, -5, 4, -5, 4, -2, 6, -2, 6, 1, 2, 1, 1, 2, 1, 5, -1, 7, -6, 7, -8, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhm6t"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -24,9 +20,6 @@ texture = ExtResource("2_1wkg2")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(7, -8, -8, -8, -8, 7, -1, 7, 1, 5, 1.66667, 1.66666, 6, 1)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource("OccluderPolygon2D_7oyap")
 
 [node name="healthbar" type="ProgressBar" parent="."]
 offset_left = -8.33333

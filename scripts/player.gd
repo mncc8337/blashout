@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal someone_attack_me_help
+
 const SPEED = 600.0
 const FRICTION = 0.1
 
