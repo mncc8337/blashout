@@ -2,8 +2,12 @@ extends CharacterBody2D
 
 
 var SPEED = 600.0
-var V = Vector2.ZERO
+var health = 100.0
 @onready var player = $"../../player"
+
+func _process(delta):
+	$healthbar.visible = health < 100
+	$healthbar.value = health
 
 func _physics_process(delta):
 	var player_pos = player.global_position

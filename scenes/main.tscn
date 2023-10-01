@@ -10,7 +10,7 @@
 cull_mode = 1
 polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, -13, -13, -14)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhm6t"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -18,7 +18,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="Theme" id="Theme_4ddnc"]
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_uhm6t")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_fubgv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2dpq"]
 bg_color = Color(0.454902, 0.564706, 1, 1)
@@ -145,3 +145,9 @@ position = Vector2(651, 462)
 [node name="foes" type="Node" parent="."]
 
 [node name="foe" parent="foes" instance=ExtResource("5_2h47a")]
+
+[node name="foe2" parent="foes" instance=ExtResource("5_2h47a")]
+position = Vector2(557, 327)
+
+[node name="foe3" parent="foes" instance=ExtResource("5_2h47a")]
+position = Vector2(501, 550)
