@@ -42,7 +42,7 @@ func fetch_skill(skill):
 	elif skill == SKILL.STRONGER_LIGHT:
 		info[0] = "stronger light"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your damage to ghost by 5%"
+		info[2] = "increase your damage to ghost by 10%"
 	elif skill == SKILL.LARGER_LIGHT:
 		info[0] = "larger light"
 		info[1] = "res://imgs/skillimg.png"
@@ -50,15 +50,15 @@ func fetch_skill(skill):
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your stamina by 5%"
+		info[2] = "increase your stamina by 7%"
 	elif skill == SKILL.MEDIC:
 		info[0] = "medic"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "heal your self 5% faster"
+		info[2] = "heal yourself 5% faster"
 	elif skill == SKILL.FURIOUS:
 		info[0] = "furious"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "allow you to point the light on any direction when running"
+		info[2] = "allow you to redirect your light to any directions while running"
 	elif skill == SKILL.TOMB_RAIDER:
 		info[0] = "tomb raider"
 		info[1] = "res://imgs/skillimg.png"
@@ -69,12 +69,18 @@ func fetch_skill(skill):
 func apply_skill(skill):
 	if skill == SKILL.CAT_VISION:
 		$player.get_node("vision").texture_scale *= 1.05
+		if $player.get_node("vision").texture_scale >= 15:
+			$player.get_node("vision").texture_scale = 15
+			skilllist.erase(SKILL.CAT_VISION)
 	elif skill == SKILL.STRONGER_LIGHT:
-		$player.max_attack_dmg *= 2
+		$player.max_attack_dmg *= 1.1
 	elif skill == SKILL.LARGER_LIGHT:
 		$player.get_node("flashlight").scale.x *= 1.05
+		if $player.get_node("flashlight").scale.x >= 0.5:
+			$player.get_node("flashlight").scale.x = 0.5
+			skilllist.erase(SKILL.LARGER_LIGHT)
 	elif skill == SKILL.RUNNER:
-		$player.max_stamina *= 1.05
+		$player.max_stamina *= 1.07
 	elif skill == SKILL.MEDIC:
 		$player.get_node("healing_timer").wait_time *= 1.05
 	elif skill == SKILL.FURIOUS:
