@@ -1,14 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=16 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_cbocj"]
-[ext_resource type="PackedScene" uid="uid://bdtknlk2qmu1v" path="res://scenes/blck.tscn" id="4_661in"]
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f5l68"]
-cull_mode = 1
-polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, -13, -13, -14)
+[ext_resource type="Texture2D" uid="uid://dcw76xm15b1e7" path="res://imgs/skillimg.png" id="5_boj1d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -43,54 +39,27 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_5w0yb")
 [sub_resource type="LabelSettings" id="LabelSettings_ksbp5"]
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_nixyl"]
+font_size = 52
+
+[sub_resource type="LabelSettings" id="LabelSettings_uawwg"]
+font_size = 24
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_s6gpx")
 
 [node name="background" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
 position = Vector2(683, 384)
-
-[node name="dummy" type="StaticBody2D" parent="."]
-position = Vector2(850, 448)
-
-[node name="body" type="Node2D" parent="dummy"]
-
-[node name="Polygon2D" type="Polygon2D" parent="dummy/body"]
-position = Vector2(7.2, -0.8)
-color = Color(1, 0.678431, 0.545098, 1)
-polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, -13, -13, -14)
-
-[node name="Polygon2D3" type="Polygon2D" parent="dummy/body"]
-position = Vector2(7.2, -0.8)
-polygon = PackedVector2Array(-19, -6, -16, -8, -12, -7, -12, -3, -15, -1, -18, -2)
-
-[node name="Polygon2D5" type="Polygon2D" parent="dummy/body"]
-position = Vector2(7.2, -0.8)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-18, -5, -17, -6, -15, -6, -14, -4, -16, -2, -18, -3)
-
-[node name="Polygon2D4" type="Polygon2D" parent="dummy/body"]
-position = Vector2(7.2, 10.2)
-polygon = PackedVector2Array(-18, -6, -15, -8, -12, -6, -12, -2, -14, -1, -18, -2)
-
-[node name="Polygon2D6" type="Polygon2D" parent="dummy/body"]
-position = Vector2(8.2, 10.2)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-18, -5, -17, -6, -15, -6, -14, -4, -16, -2, -18, -3)
-
-[node name="Polygon2D2" type="CollisionPolygon2D" parent="dummy"]
-position = Vector2(7.2, -0.8)
-polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, -13, -13, -14)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="dummy/Polygon2D2"]
-occluder = SubResource("OccluderPolygon2D_f5l68")
 
 [node name="walls" type="Node2D" parent="."]
 scale = Vector2(1.00136, 0.998738)
@@ -113,6 +82,8 @@ scale = Vector2(1366, 1e-05)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(683, 384)
+
+[node name="foes" type="Node" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("3_cbocj")
@@ -143,11 +114,6 @@ offset_bottom = 114.0
 theme = SubResource("Theme_bctt7")
 text = "concu chim"
 
-[node name="block" parent="." instance=ExtResource("4_661in")]
-position = Vector2(634, 489)
-
-[node name="foes" type="Node" parent="."]
-
 [node name="death_UI" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
@@ -167,6 +133,114 @@ offset_top = 290.0
 offset_right = 711.0
 offset_bottom = 370.0
 text = "pls let me try again"
+
+[node name="skill_board" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="skill_board"]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="skill_board/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "skill 1"
+label_settings = SubResource("LabelSettings_nixyl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_boj1d")
+stretch_mode = 3
+
+[node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_uawwg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Panel2" type="Panel" parent="skill_board/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+text = "skill 1"
+label_settings = SubResource("LabelSettings_nixyl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_boj1d")
+stretch_mode = 3
+
+[node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_uawwg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Panel3" type="Panel" parent="skill_board/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+text = "skill 1"
+label_settings = SubResource("LabelSettings_nixyl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_boj1d")
+stretch_mode = 3
+
+[node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_uawwg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="foe_spawn_timer" type="Timer" parent="."]
 autostart = true
