@@ -26,7 +26,6 @@ func on_being_attacked(damage):
 	health -= damage
 	if health <= 0:
 		$"../../main".died.emit()
-		get_tree().paused = true
 
 func _physics_process(delta):
 	if health <= 0: return

@@ -8,6 +8,7 @@ func _ready():
 	$death_UI/Button.button_down.connect(replay)
 
 func show_death_screen():
+	get_tree().paused = true
 	$death_UI.visible = true
 
 func replay():
