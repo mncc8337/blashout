@@ -53,10 +53,11 @@ color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
-position = Vector2(359, 233)
+position = Vector2(683, 384)
 
 [node name="dummy" type="StaticBody2D" parent="."]
 position = Vector2(850, 448)
@@ -176,3 +177,6 @@ offset_top = 290.0
 offset_right = 711.0
 offset_bottom = 370.0
 text = "pls let me try again"
+
+[node name="foe_spawn_timer" type="Timer" parent="."]
+autostart = true
