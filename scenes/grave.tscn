@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bc2yqyeynwtq4"]
+[gd_scene load_steps=8 format=3 uid="uid://bc2yqyeynwtq4"]
 
 [ext_resource type="Script" path="res://scripts/foe.gd" id="1_4xd2n"]
 
@@ -12,9 +12,47 @@ bg_color = Color(1, 0.117647, 0.137255, 0.74902)
 [sub_resource type="Theme" id="Theme_7fvyk"]
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_uhm6t")
 
+[sub_resource type="Animation" id="Animation_0nccc"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.788235)]
+}
+
+[sub_resource type="Animation" id="Animation_366u1"]
+resource_name = "die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.788235), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v1ul4"]
+_data = {
+"die": SubResource("Animation_366u1"),
+"spawn": SubResource("Animation_0nccc")
+}
+
 [node name="grave" type="CharacterBody2D" groups=["grave"]]
 position = Vector2(2, -5)
-scale = Vector2(4.135, 4.135)
+scale = Vector2(4, 4)
 motion_mode = 1
 slide_on_ceiling = false
 wall_min_slide_angle = 0.0
@@ -23,13 +61,12 @@ floor_block_on_wall = false
 platform_on_leave = 2
 script = ExtResource("1_4xd2n")
 SPEED = 0.0
-max_health = 1000.0
 attack_dmg = 0
 attack_range = 0
 attack_cooldown = 0.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.372549, 0.372549, 0.372549, 1)
+color = Color(1, 1, 1, 0.788235)
 polygon = PackedVector2Array(2.17654, -2.90206, 3, -2, 2.90206, 6.04595, -4, 6, -4, -2, -3, -3)
 
 [node name="Polygon2D2" type="CollisionPolygon2D" parent="."]
@@ -128,3 +165,12 @@ show_percentage = false
 [node name="attack_cooldown" type="Timer" parent="."]
 wait_time = 7.0
 one_shot = true
+
+[node name="die_timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v1ul4")
+}

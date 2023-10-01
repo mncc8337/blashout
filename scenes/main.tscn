@@ -54,35 +54,32 @@ position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-172, -101, 1252, -103, 1234, 731, -168, 715)
 
-[node name="WallSide1" type="Sprite2D" parent="."]
-position = Vector2(-78, 360)
-scale = Vector2(0.242761, 0.457236)
-texture = ExtResource("5_lssb2")
-
-[node name="WallSide2" type="Sprite2D" parent="."]
-position = Vector2(1433, 402)
-rotation = 3.14159
-scale = Vector2(0.213372, -0.457236)
-texture = ExtResource("5_lssb2")
-
-[node name="Wall" type="Sprite2D" parent="."]
-position = Vector2(755, -13)
-scale = Vector2(0.862384, 0.343628)
-texture = ExtResource("6_5xogt")
-
-[node name="Wall2" type="Sprite2D" parent="."]
-position = Vector2(702, 801)
-scale = Vector2(0.77402, -0.316605)
-texture = ExtResource("6_5xogt")
-
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
 position = Vector2(683, 384)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
-
 [node name="walls" type="Node2D" parent="."]
 scale = Vector2(1.00136, 0.998738)
+
+[node name="WallSide1" type="Sprite2D" parent="walls"]
+position = Vector2(-77.8941, 360.455)
+scale = Vector2(0.242431, 0.457814)
+texture = ExtResource("5_lssb2")
+
+[node name="WallSide2" type="Sprite2D" parent="walls"]
+position = Vector2(1431.05, 402.508)
+rotation = -3.14159
+scale = Vector2(0.213082, -0.457814)
+texture = ExtResource("5_lssb2")
+
+[node name="Wall" type="Sprite2D" parent="walls"]
+position = Vector2(753.975, -13.0164)
+scale = Vector2(0.861213, 0.344062)
+texture = ExtResource("6_5xogt")
+
+[node name="Wall2" type="Sprite2D" parent="walls"]
+position = Vector2(701.047, 802.012)
+scale = Vector2(0.772969, -0.317005)
+texture = ExtResource("6_5xogt")
 
 [node name="wall" parent="walls" instance=ExtResource("2_222mk")]
 position = Vector2(51.9294, 384)
@@ -100,10 +97,15 @@ scale = Vector2(1366, 1e-05)
 position = Vector2(688.064, 715.906)
 scale = Vector2(1366, 1e-05)
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(683, 384)
 
 [node name="foes" type="Node" parent="."]
+
+[node name="graves" type="Node" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
 

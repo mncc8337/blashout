@@ -14,6 +14,8 @@ var die = false
 var sqr_attack_range
 
 func _ready():
+	$AnimationPlayer.play("spawn")
+	
 	health = max_health
 	$healthbar.max_value = max_health
 	
@@ -21,6 +23,8 @@ func _ready():
 	sqr_attack_range = attack_range * attack_range
 	
 	being_attacked.connect(receive_damage)
+	
+	$die_timer.timeout.connect(queue_free)
 
 func receive_damage(damage):
 	if die:
@@ -31,6 +35,7 @@ func receive_damage(damage):
 	else:
 		health -= 0.1
 	if health <= 0:
+		die = true
 		if is_in_group("foe"):
 			#do sth before this
 			var main = get_tree().get_root().get_node("main")
@@ -38,11 +43,13 @@ func receive_damage(damage):
 			if rnd < 25:
 				var grave = main.grave_model.instantiate()
 				grave.position = position
-				main.add_child(grave)
+				main.get_node("graves").add_child(grave)
 			main.foe_killed += 1
 			main.foe_killed_total += 1
-			die = true
-		self.queue_free()
+			SPEED = 0
+			attack_dmg = 0
+		$die_timer.start()
+		$AnimationPlayer.play("die")
 		return
 
 func _process(delta):

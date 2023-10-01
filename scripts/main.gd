@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
 var foe_attack_dmg_max:float = 10
-var foe_speed_max:float = 900.0
+var foe_speed_max:float = 1500.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
