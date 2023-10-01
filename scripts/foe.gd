@@ -6,7 +6,7 @@ signal being_attacked(damage)
 @export var max_health:float = 100
 var health = 100.0
 @export var attack_dmg = 10
-@export var attack_range = 50 # in px
+@export var attack_range = 40 # in px
 @export var attack_cooldown = 1.5
 @onready var player = get_tree().get_root().get_node("main/player")
 var die = false
@@ -33,7 +33,7 @@ func receive_damage(damage):
 	if is_in_group("foe"):
 		health -= damage
 	else:
-		health -= 0.1
+		health -= 0.05
 	if health <= 0:
 		die = true
 		if is_in_group("foe"):

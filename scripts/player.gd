@@ -2,8 +2,6 @@ extends CharacterBody2D
 @onready var main = get_tree().get_root().get_node("main")
 
 signal someone_attack_me_help(damage)
-
-const SPEED = 600.0
 const FRICTION = 0.1
 
 var viewport
@@ -12,6 +10,7 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
+@export var SPEED:float = 600.0
 @export var audio_stream: AudioStream
 @export var max_attack_dmg:float = 10
 @export var healing_time:float = 30

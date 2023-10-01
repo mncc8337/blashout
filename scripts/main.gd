@@ -19,9 +19,10 @@ var current_foe_count_max:int = 20
 var wave_count:int = 1
 
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
-enum SKILL {CAT_VISION, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, FURIOUS, TOMB_RAIDER}
+enum SKILL {CAT_VISION, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, FURIOUS, TOMB_RAIDER, EARTH_QUAKE}
 
-var skilllist = [0, 1, 2, 3, 4, 5, 6]
+var skilllist = [0, 1, 2, 3, 4, 5, 6, 7]
+var skill_goal:int = 10
 
 var panel1_label
 var panel1_img
@@ -42,15 +43,15 @@ func fetch_skill(skill):
 	elif skill == SKILL.STRONGER_LIGHT:
 		info[0] = "stronger light"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your damage to ghost by 10%"
+		info[2] = "increase your damage to ghost by 5%"
 	elif skill == SKILL.LARGER_LIGHT:
 		info[0] = "larger light"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "make your light reach 7% further"
+		info[2] = "make your light reach 5% further"
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your stamina and your base speed by 7%"
+		info[2] = "increase your stamina and your base speed by 5%"
 	elif skill == SKILL.MEDIC:
 		info[0] = "medic"
 		info[1] = "res://imgs/skillimg.png"
@@ -63,6 +64,10 @@ func fetch_skill(skill):
 		info[0] = "tomb raider"
 		info[1] = "res://imgs/skillimg.png"
 		info[2] = "remove graves by pointing light at it (it takes time)"
+	elif skill == SKILL.EARTH_QUAKE:
+		info[0] = "earth quake"
+		info[1] = "res://imgs/skillimg.png"
+		info[2] = "reduce the number of grave by 25%"
 
 	return info
 
@@ -73,9 +78,9 @@ func apply_skill(skill):
 			$player.get_node("vision").texture_scale = 15
 			skilllist.erase(SKILL.CAT_VISION)
 	elif skill == SKILL.STRONGER_LIGHT:
-		$player.max_attack_dmg *= 1.1
+		$player.max_attack_dmg *= 1.05
 	elif skill == SKILL.LARGER_LIGHT:
-		$player.get_node("flashlight").scale.x *= 1.07
+		$player.get_node("flashlight").scale.x *= 1.05
 		if $player.get_node("flashlight").scale.x >= 0.5:
 			$player.get_node("flashlight").scale.x = 0.5
 			skilllist.erase(SKILL.LARGER_LIGHT)
@@ -93,12 +98,17 @@ func apply_skill(skill):
 	elif skill == SKILL.TOMB_RAIDER:
 		$player.tomb_raider = true
 		skilllist.erase(SKILL.TOMB_RAIDER)
+	elif skill == SKILL.EARTH_QUAKE:
+		var all_grave = $graves.get_children()
+		all_grave.shuffle()
+		var num = ceil(all_grave.size() * 0.25)
+		for i in num:
+			all_grave[i].queue_clear()
 
 func choose_skill(x):
 	apply_skill(skilllist[x])
 	$skill_panel.visible = false
 	get_tree().paused = false
-	new_wave()
 
 func choose_skill1(): choose_skill(0)
 func choose_skill2(): choose_skill(1)
@@ -166,11 +176,12 @@ func spawn_foe():
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.9, 2.0)
 		foe_instance.SPEED = foe_speed_max * rng.randf_range(0.5, 0.7)
 		foe_instance.max_health = foe_health_max * rng.randf_range(0.9, 1.7)
-		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.3, 0.7)
+		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.7, 1)
 	elif foe_class == FOE_CLASS.ROACH:
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.3, 0.5)
-		foe_instance.SPEED = foe_speed_max * rng.randf_range(2, 5)
-		foe_instance.max_health = foe_health_max * rng.randf_range(0.3, 0.7)
+		foe_instance.SPEED = foe_speed_max * rng.randf_range(2, 4)
+		foe_instance.max_health = foe_health_max * rng.randf_range(0.3, 0.5)
+		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.5, 0.7)
 	$foes.add_child(foe_instance)
 	
 	foe_spawned += 1
@@ -208,6 +219,10 @@ func _process(delta):
 		$UI/info.text = str(current_foe_count_max - foe_killed) + '/' + str(current_foe_count_max) + " foe(s) remain"
 
 	if foe_killed == current_foe_count_max:
+		new_wave()
+	
+	if foe_killed_total == skill_goal:
+		skill_goal += 20
 		get_tree().paused = true
 		
 		skilllist.shuffle()
