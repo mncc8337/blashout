@@ -48,6 +48,7 @@ font_size = 18
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_s6gpx")
+foe_spawn_delay = null
 
 [node name="background" type="Polygon2D" parent="."]
 position = Vector2(151, 82)
@@ -104,6 +105,8 @@ color = Color(0, 0, 0, 1)
 offset = Vector2(683, 384)
 
 [node name="foes" type="Node" parent="."]
+
+[node name="speedbumpers" type="Node" parent="."]
 
 [node name="graves" type="Node" parent="."]
 

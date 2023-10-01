@@ -12,14 +12,16 @@ var health = 100.0
 var die = false
 
 var sqr_attack_range
-
+func abs(n):
+	if n<0:return -n
+	return n
 func _ready():
 	$AnimationPlayer.play("spawn")
 	
 	health = max_health
 	$healthbar.max_value = max_health
 	
-	$attack_cooldown.wait_time = attack_cooldown
+	$attack_cooldown.wait_time = abs(attack_cooldown)
 	sqr_attack_range = attack_range * attack_range
 	
 	being_attacked.connect(receive_damage)
