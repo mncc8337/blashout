@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 20.0
+const SPEED = 600.0
 const FRICTION = 0.1
 
 var viewport
@@ -13,9 +13,6 @@ var health = 100
 var stamina = 100
 var is_exhausted = false
 
-@onready var foe =  $"../foe"
-
-
 func _ready():
 	viewport = get_viewport()
 	camera = viewport.get_camera_2d()
@@ -23,7 +20,6 @@ func _ready():
 func _physics_process(delta):
 	var dir = Vector2.ZERO
 	var speed_multiplier = 1
-	var receive_dmg_range = (self.global_position - foe.global_position).abs()
 	if Input.is_action_pressed("up"):
 		dir += Vector2(0, -1)
 	if Input.is_action_pressed("down"):
@@ -40,7 +36,8 @@ func _physics_process(delta):
 		speed_multiplier = clamp((stamina + 10) / 100, 0, 1)
 	if is_running:
 		speed_multiplier = 2.5
-	velocity += dir.normalized() * SPEED * speed_multiplier
+	print(delta)
+	velocity += dir.normalized() * SPEED * speed_multiplier * delta
 	
 	if dir == Vector2.ZERO or speed_multiplier < 0.5:
 		if stamina < 100:
@@ -53,10 +50,6 @@ func _physics_process(delta):
 		else:
 			is_exhausted = true
 			stamina = 0
-	
-	if receive_dmg_range.x + receive_dmg_range.y < 100:
-		health-=0.2
-		
 		
 	if dir == Vector2.ZERO or !is_running:
 		look_at(viewport.get_mouse_position() + camera.position)

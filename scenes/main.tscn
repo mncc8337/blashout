@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=14 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_cbocj"]
-[ext_resource type="PackedScene" uid="uid://biwhw5vahhhie" path="res://scenes/blck.tscn" id="4_661in"]
-[ext_resource type="Script" path="res://scripts/foe.gd" id="5_bh00k"]
-[ext_resource type="Texture2D" uid="uid://d0ou6idyolsw" path="res://imgs/foe.png" id="6_pcyax"]
+[ext_resource type="PackedScene" path="res://scenes/blck.tscn" id="4_661in"]
+[ext_resource type="PackedScene" uid="uid://bycwegn7joe5n" path="res://scenes/foe.tscn" id="5_2h47a"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f5l68"]
 cull_mode = 1
@@ -143,14 +142,6 @@ text = "concu chim"
 [node name="block" parent="." instance=ExtResource("4_661in")]
 position = Vector2(651, 462)
 
-[node name="foe" type="CharacterBody2D" parent="."]
-position = Vector2(750, 448)
-scale = Vector2(3, 3)
-motion_mode = 1
-script = ExtResource("5_bh00k")
+[node name="foes" type="Node" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="foe"]
-polygon = PackedVector2Array(7, -8, -8, -8, -8, 7, 6, 4)
-
-[node name="Sprite2D" type="Sprite2D" parent="foe/CollisionPolygon2D"]
-texture = ExtResource("6_pcyax")
+[node name="foe" parent="foes" instance=ExtResource("5_2h47a")]
