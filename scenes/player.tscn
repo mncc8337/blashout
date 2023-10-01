@@ -77,4 +77,4 @@ texture = ExtResource("2_yr8mj")
 [node name="lightarea" type="Area2D" parent="."]
 
 [node name="light_collision_lol" type="CollisionPolygon2D" parent="lightarea"]
-polygon = PackedVector2Array(-1435, -331, -1435, 299, -1429, 299, -25, -3, -25, -30, -1423, -331)
+polygon = PackedVector2Array(-1435, -331, -1435, 299, -1429, 299, -25, -14, -25, -18, -1423, -331)

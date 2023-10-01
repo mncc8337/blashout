@@ -1,18 +1,39 @@
-[gd_scene load_steps=9 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=15 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_cbocj"]
+[ext_resource type="PackedScene" uid="uid://biwhw5vahhhie" path="res://scenes/blck.tscn" id="4_661in"]
+[ext_resource type="Script" path="res://scripts/foe.gd" id="5_bh00k"]
+[ext_resource type="Texture2D" uid="uid://d0ou6idyolsw" path="res://imgs/foe.png" id="6_pcyax"]
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g4b7h"]
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f5l68"]
 cull_mode = 1
-polygon = PackedVector2Array(-22.2, -8.2, -22.2, 11.8, -15.2, 15.8, -1.2, 14.8, 6.8, 8.8, 5.8, -5.2, -0.199999, -13.2, -13.2, -14.2)
+polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, -13, -13, -14)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhm6t"]
-bg_color = Color(1, 0, 0.0941176, 0.392157)
+bg_color = Color(1, 0.117647, 0.137255, 0.74902)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="Theme" id="Theme_4ddnc"]
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_uhm6t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2dpq"]
+bg_color = Color(0.454902, 0.564706, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkhp0"]
+bg_color = Color(0.447059, 0.564706, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_6h42r"]
+/styles/fill = SubResource("StyleBoxFlat_x2dpq")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkhp0")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w0yb"]
 bg_color = Color(0, 0.333333, 1, 0.392157)
@@ -65,11 +86,11 @@ polygon = PackedVector2Array(-18, -5, -17, -6, -15, -6, -14, -4, -16, -2, -18, -
 position = Vector2(7.2, -0.8)
 polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, -13, -13, -14)
 
-[node name="Polygon2D7" type="LightOccluder2D" parent="dummy"]
-position = Vector2(7.38, -0.6)
-occluder = SubResource("OccluderPolygon2D_g4b7h")
+[node name="LightOccluder2D" type="LightOccluder2D" parent="dummy/Polygon2D2"]
+occluder = SubResource("OccluderPolygon2D_f5l68")
 
 [node name="walls" type="Node2D" parent="."]
+scale = Vector2(1.00136, 0.998738)
 
 [node name="wall" parent="walls" instance=ExtResource("2_222mk")]
 position = Vector2(0, 324)
@@ -101,19 +122,35 @@ offset_right = 183.0
 offset_bottom = 40.0
 theme = SubResource("Theme_4ddnc")
 value = 75.0
+rounded = true
 
 [node name="staminabar" type="ProgressBar" parent="UI"]
 offset_left = 11.0
 offset_top = 50.0
 offset_right = 183.0
 offset_bottom = 77.0
-theme = SubResource("Theme_bctt7")
+theme = SubResource("Theme_6h42r")
 value = 75.0
 
-[node name="exhauted" type="Label" parent="UI"]
+[node name="exhausted" type="Label" parent="UI"]
 offset_left = 11.0
 offset_top = 87.0
 offset_right = 183.0
 offset_bottom = 114.0
 theme = SubResource("Theme_bctt7")
 text = "concu chim"
+
+[node name="block" parent="." instance=ExtResource("4_661in")]
+position = Vector2(651, 462)
+
+[node name="foe" type="CharacterBody2D" parent="."]
+position = Vector2(750, 448)
+scale = Vector2(3, 3)
+motion_mode = 1
+script = ExtResource("5_bh00k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="foe"]
+polygon = PackedVector2Array(7, -8, -8, -8, -8, 7, 6, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="foe/CollisionPolygon2D"]
+texture = ExtResource("6_pcyax")

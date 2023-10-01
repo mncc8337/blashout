@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmornkppw6r7"]
+
+[ext_resource type="Texture2D" uid="uid://d0ou6idyolsw" path="res://imgs/foe.png" id="1_r8q3y"]
+
+[node name="foe" type="CharacterBody2D"]
+position = Vector2(750, 448)
+scale = Vector2(3, 3)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(7, -8, -8, -8, -8, 7, 6, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionPolygon2D"]
+texture = ExtResource("1_r8q3y")
