@@ -51,17 +51,6 @@ polygon = PackedVector2Array(-22, -8, -22, 12, -15, 16, -1, 15, 7, 9, 6, -5, 0, 
 position = Vector2(7.38, -0.6)
 occluder = SubResource("OccluderPolygon2D_g4b7h")
 
-[node name="flashlight" type="PointLight2D" parent="."]
-position = Vector2(-25, -16)
-rotation = 3.14159
-scale = Vector2(0.47, 0.63)
-energy = 1.5
-range_z_max = 3000
-shadow_enabled = true
-texture = ExtResource("2_yr8mj")
-offset = Vector2(1500, 0)
-height = 1000.0
-
 [node name="vision" type="PointLight2D" parent="."]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("3_gigwj")
@@ -74,7 +63,65 @@ rotation = 3.14159
 scale = Vector2(0.47, 0.63)
 texture = ExtResource("2_yr8mj")
 
-[node name="lightarea" type="Area2D" parent="."]
+[node name="flashlight" type="PointLight2D" parent="."]
+position = Vector2(-25, -16)
+rotation = 3.14159
+scale = Vector2(0.47, 0.63)
+color = Color(0.603922, 0, 1, 1)
+energy = 1.5
+range_z_max = 3000
+shadow_enabled = true
+texture = ExtResource("2_yr8mj")
+offset = Vector2(1500, 0)
+height = 1000.0
 
-[node name="light_collision_lol" type="CollisionPolygon2D" parent="lightarea"]
-polygon = PackedVector2Array(-1435, -331, -1435, 299, -1429, 299, -25, -14, -25, -18, -1423, -331)
+[node name="ray0" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 0)
+
+[node name="ray9" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 62.5)
+
+[node name="ray11" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 187.5)
+
+[node name="ray12" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 312.5)
+
+[node name="ray13" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 437.5)
+
+[node name="ray10" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -62.5)
+
+[node name="ray14" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -187.5)
+
+[node name="ray15" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -312.5)
+
+[node name="ray16" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -437.5)
+
+[node name="ray1" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 500)
+
+[node name="ray2" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -500)
+
+[node name="ray3" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 250)
+
+[node name="ray4" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -250)
+
+[node name="ray5" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 125)
+
+[node name="ray6" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -125)
+
+[node name="ray7" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, -375)
+
+[node name="ray8" type="RayCast2D" parent="flashlight"]
+target_position = Vector2(3000, 375)

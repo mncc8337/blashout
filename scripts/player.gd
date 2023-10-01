@@ -11,7 +11,8 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
-var attack_dmg = 0.5
+@export var max_attack_dmg:float = 1
+var attack_dmg
 var health = 100
 var stamina = 100
 var is_exhausted = false
@@ -19,6 +20,8 @@ var is_exhausted = false
 func _ready():
 	viewport = get_viewport()
 	camera = viewport.get_camera_2d()
+	
+	attack_dmg = max_attack_dmg / $flashlight.get_child_count()
 	
 	someone_attack_me_help.connect(on_being_attacked)
 
@@ -63,16 +66,18 @@ func _physics_process(delta):
 			stamina = 0
 		
 	if dir == Vector2.ZERO or !is_running:
-		look_at(viewport.get_mouse_position() + camera.position)
+		look_at(viewport.get_mouse_position())
 	else:
 		current_dir = current_dir.lerp(dir, 0.5)
 		look_at(current_dir + position)
 	rotation += PI
 	
 	# after rotate, check if can attack
-	for body in $lightarea.get_overlapping_bodies():
-		if body.is_in_group("foe"):
-			body.being_attacked.emit(attack_dmg)
+	for ray in $flashlight.get_children():
+		var obj = ray.get_collider()
+		if obj != null:
+			if obj.is_in_group("foe"):
+				obj.being_attacked.emit(attack_dmg)
 	
 	velocity *= 1 - FRICTION
 

@@ -48,7 +48,7 @@ font_size = 64
 script = ExtResource("1_s6gpx")
 
 [node name="background" type="Polygon2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
 
@@ -56,7 +56,7 @@ polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
-position = Vector2(359, 250)
+position = Vector2(359, 233)
 
 [node name="dummy" type="StaticBody2D" parent="."]
 position = Vector2(850, 448)
@@ -97,23 +97,23 @@ occluder = SubResource("OccluderPolygon2D_f5l68")
 scale = Vector2(1.00136, 0.998738)
 
 [node name="wall" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(0, 324)
-scale = Vector2(1, 648)
-
-[node name="wall3" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(576, 0)
-scale = Vector2(1152, 1e-05)
-
-[node name="wall4" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(576, 648)
-scale = Vector2(1152, 1e-05)
+position = Vector2(0, 384)
+scale = Vector2(1, 768)
 
 [node name="wall2" parent="walls" instance=ExtResource("2_222mk")]
-position = Vector2(1153, 324)
-scale = Vector2(1, 648)
+position = Vector2(1366, 384)
+scale = Vector2(1, 768)
+
+[node name="wall3" parent="walls" instance=ExtResource("2_222mk")]
+position = Vector2(683, 0)
+scale = Vector2(1366, 1e-05)
+
+[node name="wall4" parent="walls" instance=ExtResource("2_222mk")]
+position = Vector2(683, 768)
+scale = Vector2(1366, 1e-05)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(576, 324)
+offset = Vector2(683, 384)
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("3_cbocj")
@@ -163,7 +163,7 @@ visible = false
 
 [node name="Label" type="Label" parent="death_UI"]
 offset_top = 100.0
-offset_right = 1152.0
+offset_right = 1366.0
 offset_bottom = 191.0
 text = "u died lmao"
 label_settings = SubResource("LabelSettings_ksbp5")
