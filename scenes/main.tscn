@@ -53,6 +53,7 @@ color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-172, -101, 1252, -103, 1234, 731, -168, 715)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
@@ -280,6 +281,5 @@ text = "select"
 [node name="foe_spawn_timer" type="Timer" parent="."]
 
 [node name="wave_start_timer" type="Timer" parent="."]
-wait_time = 10.0
 one_shot = true
 autostart = true

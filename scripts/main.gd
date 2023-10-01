@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var block_model = preload("res://scenes/blck.tscn")
 var foe_attack_dmg_max:float = 10
-var foe_speed_max:float = 600.0
+var foe_speed_max:float = 900.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
@@ -84,8 +84,8 @@ func replay():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$UI/healthbar.max_value = $player.max_health
-	$UI/healthbar.value = $player.health
+	$UI/healthbar.max_value = ceil($player.max_health)
+	$UI/healthbar.value = ceil($player.health)
 	$UI/staminabar.value = $player.stamina
 	if $player.is_exhausted:
 		$UI/exhausted.text = "Exhausted!"

@@ -15,6 +15,7 @@ var sqr_attack_range
 
 func _ready():
 	health = max_health
+	$healthbar.max_value = max_health
 	
 	$attack_cooldown.wait_time = attack_cooldown
 	sqr_attack_range = attack_range * attack_range

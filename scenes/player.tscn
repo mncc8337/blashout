@@ -80,69 +80,86 @@ height = 1000.0
 [node name="ray1" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, 20)
 target_position = Vector2(3000, 480)
+collision_mask = 3
 
 [node name="ray13" type="RayCast2D" parent="flashlight"]
 position = Vector2(-7.62939e-06, 17.5)
 target_position = Vector2(3000, 420)
+collision_mask = 3
 
 [node name="ray8" type="RayCast2D" parent="flashlight"]
 position = Vector2(-7.62939e-06, 15)
 target_position = Vector2(3000, 360)
+collision_mask = 3
 
 [node name="ray12" type="RayCast2D" parent="flashlight"]
 position = Vector2(-7.62939e-06, 12.5)
 target_position = Vector2(3000, 300)
+collision_mask = 3
 
 [node name="ray3" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, 10)
 target_position = Vector2(3000, 240)
+collision_mask = 3
 
 [node name="ray11" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, 7.5)
 target_position = Vector2(3000, 180)
+collision_mask = 3
 
 [node name="ray5" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, 5)
 target_position = Vector2(3000, 120)
+collision_mask = 3
 
 [node name="ray9" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, 2.5)
 target_position = Vector2(3000, 60)
+collision_mask = 3
 
 [node name="ray0" type="RayCast2D" parent="flashlight"]
 target_position = Vector2(3000, 0)
+collision_mask = 3
 
 [node name="ray10" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -2.5)
 target_position = Vector2(3000, -60)
+collision_mask = 3
 
 [node name="ray6" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -5)
 target_position = Vector2(3000, -120)
+collision_mask = 3
 
 [node name="ray14" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -7.5)
 target_position = Vector2(3000, -180)
+collision_mask = 3
 
 [node name="ray4" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -10)
 target_position = Vector2(3000, -240)
+collision_mask = 3
 
 [node name="ray15" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -12.5)
 target_position = Vector2(3000, -300)
+collision_mask = 3
 
 [node name="ray7" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -15)
 target_position = Vector2(3000, -360)
+collision_mask = 3
 
 [node name="ray16" type="RayCast2D" parent="flashlight"]
 position = Vector2(0, -17.5)
 target_position = Vector2(3000, -420)
+collision_mask = 3
 
 [node name="ray2" type="RayCast2D" parent="flashlight"]
 position = Vector2(6.10352e-05, -20)
 target_position = Vector2(3000, -479.605)
+collision_mask = 3
 
 [node name="healing_timer" type="Timer" parent="."]
 autostart = true

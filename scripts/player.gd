@@ -13,7 +13,7 @@ var current_dir = Vector2(1, 0)
 var is_running = false
 
 @export var audio_stream: AudioStream
-@export var max_attack_dmg:float = 3
+@export var max_attack_dmg:float = 1
 @export var healing_time:float = 30
 @export var max_health:float = 100
 var attack_dmg:float
