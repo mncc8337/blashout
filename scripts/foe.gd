@@ -12,7 +12,9 @@ var health = 100.0
 var die = false
 
 var sqr_attack_range
-
+func abs(n):
+	if n<0:return -n
+	return n
 func _ready():
 	$AnimationPlayer.play("spawn")
 	
