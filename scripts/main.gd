@@ -62,7 +62,7 @@ func fetch_skill(skill):
 	elif skill == SKILL.TOMB_RAIDER:
 		info[0] = "tomb raider"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "remove grave by point light at it (it takes time)"
+		info[2] = "remove graves by point light at it (it takes time)"
 
 	return info
 
@@ -82,10 +82,13 @@ func apply_skill(skill):
 	elif skill == SKILL.RUNNER:
 		$player.max_stamina *= 1.07
 	elif skill == SKILL.MEDIC:
-		$player.get_node("healing_timer").wait_time *= 1.05
+		$player.get_node("healing_timer").wait_time *= 0.95
+		if $player.get_node("healing_timer").wait_time < 10:
+			$player.get_node("healing_timer").wait_time = 10
+			skilllist.erase(SKILL.MEDIC)
 	elif skill == SKILL.FURIOUS:
 		$player.furious = true
-		skilllist.erassddwe(SKILL.FURIOUS)
+		skilllist.erase(SKILL.FURIOUS)
 	elif skill == SKILL.TOMB_RAIDER:
 		$player.tomb_raider = true
 		skilllist.erase(SKILL.TOMB_RAIDER)
@@ -188,6 +191,7 @@ func _process(delta):
 	$UI/healthbar.value = ceil($player.health)
 	$UI/staminabar.max_value = ceil($player.max_stamina)
 	$UI/staminabar.value = $player.stamina
+
 	if $player.is_exhausted:
 		$UI/exhausted.text = "Exhausted!"
 	else:
@@ -196,7 +200,7 @@ func _process(delta):
 	if !$wave_start_timer.is_stopped():
 		$UI/info.text = "wave %d start in %d" % [wave_count, $wave_start_timer.time_left]
 	else:
-		$UI/info.text = str(current_foe_count_max - foe_killed) + '/' + str(current_foe_count_max) + " remain"
+		$UI/info.text = str(current_foe_count_max - foe_killed) + '/' + str(current_foe_count_max) + " foe(s) remain"
 
 	if foe_killed == current_foe_count_max:
 		get_tree().paused = true

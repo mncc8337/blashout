@@ -156,11 +156,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="death_UI"]
-offset_left = 482.0
-offset_top = 290.0
-offset_right = 711.0
-offset_bottom = 370.0
-text = "pls let me try again"
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -40.0
+offset_right = 114.5
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "pls lemme try again"
 
 [node name="skill_panel" type="CanvasLayer" parent="."]
 process_mode = 3
