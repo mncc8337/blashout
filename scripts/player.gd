@@ -72,7 +72,7 @@ func _physics_process(delta):
 		is_running = false
 		speed_multiplier = clamp((stamina + 10) / max_stamina, 0, 1)
 	if is_running:
-		speed_multiplier = 2.5
+		speed_multiplier = 3 + stamina / max_stamina * 2
 	velocity += dir.normalized() * SPEED * speed_multiplier * delta
 
 	if dir == Vector2.ZERO or speed_multiplier < 0.5:

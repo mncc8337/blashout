@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
 var foe_attack_dmg_max:float = 10
-var foe_speed_max:float = 1500.0
+var foe_speed_max:float = 1000.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
@@ -131,12 +131,17 @@ func start_wave():
 	$foe_spawn_timer.start()
 
 func increase_diff():
-	$foe_spawn_timer.wait_time *= 0.9
-	foe_attack_dmg_max *= 1.1
-	foe_speed_max *= 1.05
-	foe_health_max *= 1.1
-	foe_attack_cooldown_max *= 0.95
-	current_foe_count_max *= 1.5
+	if $foe_spawn_timer.wait_time > 0.2:
+		$foe_spawn_timer.wait_time *= 0.95
+	if foe_attack_dmg_max < 30:
+		foe_attack_dmg_max *= 1.05
+	if foe_speed_max < 1500:
+		foe_speed_max *= 1.05
+	foe_health_max *= 1.05
+	if foe_attack_cooldown_max > 0.5:
+		foe_attack_cooldown_max *= 0.95
+	if current_foe_count_max < 1000:
+		current_foe_count_max *= 1.5
 
 func spawn_foe():
 	if foe_spawned == current_foe_count_max:
@@ -158,13 +163,13 @@ func spawn_foe():
 		foe_instance.max_health = foe_health_max * rng.randf_range(0.5, 1)
 		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.9, 1.1)
 	elif foe_class == FOE_CLASS.BIGASS:
-		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.9, 1.3)
-		foe_instance.SPEED = foe_speed_max * rng.randf_range(0.4, 0.7)
+		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.9, 2.0)
+		foe_instance.SPEED = foe_speed_max * rng.randf_range(0.5, 0.7)
 		foe_instance.max_health = foe_health_max * rng.randf_range(0.9, 1.7)
 		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.3, 0.7)
 	elif foe_class == FOE_CLASS.ROACH:
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.3, 0.5)
-		foe_instance.SPEED = foe_speed_max * rng.randf_range(1.5, 2)
+		foe_instance.SPEED = foe_speed_max * rng.randf_range(2, 5)
 		foe_instance.max_health = foe_health_max * rng.randf_range(0.3, 0.7)
 	$foes.add_child(foe_instance)
 	
