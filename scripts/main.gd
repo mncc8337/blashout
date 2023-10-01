@@ -25,53 +25,41 @@ var skilllist = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 var skill_goal:int = 10
 
 var panel1_label
-var panel1_img
 var panel1_desc
 var panel2_label
-var panel2_img
 var panel2_desc
 var panel3_label
-var panel3_img
 var panel3_desc
 
 func fetch_skill(skill):
-	var info = ["skill name", "skill image path", "skill description"]
+	var info = ["skill name", "skill description"]
 	if skill == SKILL.CAT_VISION:
 		info[0] = "cat vision"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your base vision by 5%"
+		info[1] = "increase your base vision by 5%"
 	elif skill == SKILL.STRONGER_LIGHT:
 		info[0] = "stronger light"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your damage to ghost by 5%"
+		info[1] = "increase your damage to ghost by 5%"
 	elif skill == SKILL.LARGER_LIGHT:
 		info[0] = "larger light"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "make your light reach 5% further"
+		info[1] = "make your light reach 5% further"
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your stamina and your base speed by 5%"
+		info[1] = "increase your stamina and your base speed by 5%"
 	elif skill == SKILL.MEDIC:
 		info[0] = "medic"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "heal yourself 5% faster"
+		info[1] = "heal yourself 5% faster"
 	elif skill == SKILL.FURIOUS:
 		info[0] = "furious"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "allow you to redirect your light to any directions while running"
+		info[1] = "allow you to redirect your light to any directions while running"
 	elif skill == SKILL.TOMB_RAIDER:
 		info[0] = "tomb raider"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "remove graves by pointing light at it (it takes time)"
+		info[1] = "remove graves by pointing light at it (it takes time)"
 	elif skill == SKILL.EARTH_QUAKE:
 		info[0] = "earth quake"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "reduce the number of grave by 25%"
+		info[1] = "reduce the number of grave by 25%"
 	elif skill == SKILL.WITCH:
 		info[0] = "witch"
-		info[1] = "res://imgs/skillimg.png"
-		info[2] = "instantly heal 25% of your health"
+		info[1] = "instantly heal 25% of your health"
 
 	return info
 
@@ -107,7 +95,7 @@ func apply_skill(skill):
 		all_grave.shuffle()
 		var num = ceil(all_grave.size() * 0.25)
 		for i in num:
-			all_grave[i].queue_clear()
+			all_grave[i].queue_free()
 	elif skill == SKILL.WITCH:
 		$player.health = clamp($player.health + 0.25 * $player.max_health, 0, $player.max_health)
 
@@ -130,17 +118,14 @@ func _ready():
 	$wave_start_timer.timeout.connect(start_wave)
 	
 	panel1_label = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label
-	panel1_img = $skill_panel/HBoxContainer/Panel/VBoxContainer/TextureRect
 	panel1_desc = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label2
 	$skill_panel/HBoxContainer/Panel/VBoxContainer/Button.button_down.connect(choose_skill1)
 
 	panel2_label = $skill_panel/HBoxContainer/Panel2/VBoxContainer/Label
-	panel2_img = $skill_panel/HBoxContainer/Panel2/VBoxContainer/TextureRect
 	panel2_desc = $skill_panel/HBoxContainer/Panel2/VBoxContainer/Label2
 	$skill_panel/HBoxContainer/Panel2/VBoxContainer/Button.button_down.connect(choose_skill2)
 
 	panel3_label = $skill_panel/HBoxContainer/Panel3/VBoxContainer/Label
-	panel3_img = $skill_panel/HBoxContainer/Panel3/VBoxContainer/TextureRect
 	panel3_desc = $skill_panel/HBoxContainer/Panel3/VBoxContainer/Label2
 	$skill_panel/HBoxContainer/Panel3/VBoxContainer/Button.button_down.connect(choose_skill3)
 
@@ -209,15 +194,16 @@ func new_wave():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$UI/healthbar.max_value = ceil($player.max_health)
-	$UI/healthbar.value = ceil($player.health)
-	$UI/staminabar.max_value = ceil($player.max_stamina)
-	$UI/staminabar.value = $player.stamina
+	$UI/VBoxContainer.size.x = get_viewport().get_size().x * 0.15
+	$UI/VBoxContainer/healthbar.max_value = ceil($player.max_health)
+	$UI/VBoxContainer/healthbar.value = ceil($player.health)
+	$UI/VBoxContainer/staminabar.max_value = ceil($player.max_stamina)
+	$UI/VBoxContainer/staminabar.value = $player.stamina
 
 	if $player.is_exhausted:
-		$UI/exhausted.text = "Exhausted!"
+		$UI/VBoxContainer/exhausted.text = "Exhausted!"
 	else:
-		$UI/exhausted.text = ""
+		$UI/VBoxContainer/exhausted.text = ""
 	
 	if !$wave_start_timer.is_stopped():
 		$UI/info.text = "wave %d start in %d" % [wave_count, $wave_start_timer.time_left]
@@ -238,14 +224,11 @@ func _process(delta):
 		var s3info = fetch_skill(skilllist[2])
 		
 		panel1_label.text = s1info[0]
-		panel1_img.texture = ImageTexture.create_from_image(Image.load_from_file(s1info[1]))
-		panel1_desc.text = s1info[2]
+		panel1_desc.text = s1info[1]
 		
 		panel2_label.text = s2info[0]
-		panel2_img.texture = ImageTexture.create_from_image(Image.load_from_file(s2info[1]))
-		panel2_desc.text = s2info[2]
+		panel2_desc.text = s2info[1]
 		
 		panel3_label.text = s3info[0]
-		panel3_img.texture = ImageTexture.create_from_image(Image.load_from_file(s3info[1]))
-		panel3_desc.text = s3info[2]
+		panel3_desc.text = s3info[1]
 		$skill_panel.visible = true

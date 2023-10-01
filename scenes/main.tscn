@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=16 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
-[ext_resource type="Texture2D" uid="uid://dcw76xm15b1e7" path="res://imgs/skillimg.png" id="5_boj1d"]
 [ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="5_lssb2"]
 [ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
 
@@ -41,7 +40,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_5w0yb")
 font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_nixyl"]
-font_size = 52
+font_size = 36
 
 [sub_resource type="LabelSettings" id="LabelSettings_uawwg"]
 font_size = 18
@@ -52,7 +51,7 @@ script = ExtResource("1_s6gpx")
 [node name="background" type="Polygon2D" parent="."]
 position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
-polygon = PackedVector2Array(-172, -101, 1252, -103, 1234, 731, -168, 715)
+polygon = PackedVector2Array(-822, -485, 1998, -666, 1939, 1309, -888, 1165)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
 position = Vector2(683, 384)
@@ -61,24 +60,24 @@ position = Vector2(683, 384)
 scale = Vector2(1.00136, 0.998738)
 
 [node name="WallSide1" type="Sprite2D" parent="walls"]
-position = Vector2(-77.8941, 360.455)
-scale = Vector2(0.242431, 0.457814)
+position = Vector2(-202.18, 360.455)
+scale = Vector2(0.472589, 0.457814)
 texture = ExtResource("5_lssb2")
 
 [node name="WallSide2" type="Sprite2D" parent="walls"]
-position = Vector2(1431.05, 402.508)
+position = Vector2(1589.66, 402.508)
 rotation = -3.14159
-scale = Vector2(0.213082, -0.457814)
+scale = Vector2(0.506795, -0.457814)
 texture = ExtResource("5_lssb2")
 
 [node name="Wall" type="Sprite2D" parent="walls"]
-position = Vector2(753.975, -13.0164)
-scale = Vector2(0.861213, 0.344062)
+position = Vector2(753.975, -130.775)
+scale = Vector2(0.861213, 0.780206)
 texture = ExtResource("6_5xogt")
 
 [node name="Wall2" type="Sprite2D" parent="walls"]
-position = Vector2(701.047, 802.012)
-scale = Vector2(0.772969, -0.317005)
+position = Vector2(701.047, 927.929)
+scale = Vector2(0.772969, -0.783365)
 texture = ExtResource("6_5xogt")
 
 [node name="wall" parent="walls" instance=ExtResource("2_222mk")]
@@ -109,34 +108,36 @@ offset = Vector2(683, 384)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="healthbar" type="ProgressBar" parent="UI"]
-offset_left = 11.0
-offset_top = 13.0
-offset_right = 183.0
-offset_bottom = 40.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -58.1849
+size_flags_vertical = 0
+
+[node name="healthbar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
 theme = SubResource("Theme_4ddnc")
 value = 75.0
 rounded = true
 
-[node name="staminabar" type="ProgressBar" parent="UI"]
-offset_left = 11.0
-offset_top = 50.0
-offset_right = 183.0
-offset_bottom = 77.0
+[node name="staminabar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
 theme = SubResource("Theme_6h42r")
 value = 75.0
 
-[node name="exhausted" type="Label" parent="UI"]
-offset_left = 11.0
-offset_top = 87.0
-offset_right = 183.0
-offset_bottom = 114.0
+[node name="exhausted" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
 theme = SubResource("Theme_bctt7")
 text = "concu chim"
 
 [node name="info" type="Label" parent="UI"]
-anchors_preset = 10
+anchors_preset = -1
+anchor_top = 0.01
 anchor_right = 1.0
+anchor_bottom = 0.06
 offset_bottom = 26.0
 grow_horizontal = 2
 theme = SubResource("Theme_bctt7")
@@ -177,10 +178,10 @@ visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="skill_panel"]
 anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
+anchor_left = 0.2
+anchor_top = 0.3
+anchor_right = 0.8
+anchor_bottom = 0.7
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -190,13 +191,9 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel"]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -207,11 +204,6 @@ text = "skill 1"
 label_settings = SubResource("LabelSettings_nixyl")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("5_boj1d")
-stretch_mode = 3
 
 [node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -232,13 +224,9 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel2"]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -250,14 +238,9 @@ label_settings = SubResource("LabelSettings_nixyl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("5_boj1d")
-stretch_mode = 3
-
 [node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
-text = "Lorem ipsum dolor sit amet"
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 label_settings = SubResource("LabelSettings_uawwg")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -274,13 +257,9 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel3"]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -292,14 +271,9 @@ label_settings = SubResource("LabelSettings_nixyl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("5_boj1d")
-stretch_mode = 3
-
 [node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.nsectetur adipiscing elit, sed do eiusmod tempor incididunt ut."
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 label_settings = SubResource("LabelSettings_uawwg")
 horizontal_alignment = 1
 vertical_alignment = 1
