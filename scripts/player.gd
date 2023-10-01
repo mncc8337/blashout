@@ -88,8 +88,7 @@ func _physics_process(delta):
 			stamina = 0
 		
 	if dir == Vector2.ZERO or !is_running or furious:
-		var rat = (viewport.get_size() * 1.0 - Vector2(1366, 768))
-		look_at(viewport.get_mouse_position() - rat / 2) # idk why but it works lol
+		look_at(viewport.get_mouse_position())
 	else:
 		current_dir = current_dir.lerp(dir, 0.5)
 		look_at(current_dir + position)
