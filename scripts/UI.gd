@@ -4,7 +4,7 @@ extends CanvasLayer
 func _process(delta):
 	$healthbar.value = player.health
 	$staminabar.value = player.stamina
-	if player.is_exhauted:
-		$exhauted.text = "Exhauted!"
+	if player.is_exhausted:
+		$exhausted.text = "Exhausted!"
 	else:
-		$exhauted.text = ""
+		$exhausted.text = ""
