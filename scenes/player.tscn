@@ -77,56 +77,72 @@ texture = ExtResource("2_yr8mj")
 offset = Vector2(1500, 0)
 height = 1000.0
 
+[node name="ray1" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, 20)
+target_position = Vector2(3000, 480)
+
+[node name="ray13" type="RayCast2D" parent="flashlight"]
+position = Vector2(-7.62939e-06, 17.5)
+target_position = Vector2(3000, 420)
+
+[node name="ray8" type="RayCast2D" parent="flashlight"]
+position = Vector2(-7.62939e-06, 15)
+target_position = Vector2(3000, 360)
+
+[node name="ray12" type="RayCast2D" parent="flashlight"]
+position = Vector2(-7.62939e-06, 12.5)
+target_position = Vector2(3000, 300)
+
+[node name="ray3" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, 10)
+target_position = Vector2(3000, 240)
+
+[node name="ray11" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, 7.5)
+target_position = Vector2(3000, 180)
+
+[node name="ray5" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, 5)
+target_position = Vector2(3000, 120)
+
+[node name="ray9" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, 2.5)
+target_position = Vector2(3000, 60)
+
 [node name="ray0" type="RayCast2D" parent="flashlight"]
 target_position = Vector2(3000, 0)
 
-[node name="ray9" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 62.5)
-
-[node name="ray11" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 187.5)
-
-[node name="ray12" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 312.5)
-
-[node name="ray13" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 437.5)
-
 [node name="ray10" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -62.5)
-
-[node name="ray14" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -187.5)
-
-[node name="ray15" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -312.5)
-
-[node name="ray16" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -437.5)
-
-[node name="ray1" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 500)
-
-[node name="ray2" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -500)
-
-[node name="ray3" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 250)
-
-[node name="ray4" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -250)
-
-[node name="ray5" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 125)
+position = Vector2(0, -2.5)
+target_position = Vector2(3000, -60)
 
 [node name="ray6" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -125)
+position = Vector2(0, -5)
+target_position = Vector2(3000, -120)
+
+[node name="ray14" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, -7.5)
+target_position = Vector2(3000, -180)
+
+[node name="ray4" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, -10)
+target_position = Vector2(3000, -240)
+
+[node name="ray15" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, -12.5)
+target_position = Vector2(3000, -300)
 
 [node name="ray7" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, -375)
+position = Vector2(0, -15)
+target_position = Vector2(3000, -360)
 
-[node name="ray8" type="RayCast2D" parent="flashlight"]
-target_position = Vector2(3000, 375)
+[node name="ray16" type="RayCast2D" parent="flashlight"]
+position = Vector2(0, -17.5)
+target_position = Vector2(3000, -420)
+
+[node name="ray2" type="RayCast2D" parent="flashlight"]
+position = Vector2(6.10352e-05, -20)
+target_position = Vector2(3000, -479.605)
 
 [node name="healing_timer" type="Timer" parent="."]
 autostart = true

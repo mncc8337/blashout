@@ -49,13 +49,11 @@ font_size = 18
 script = ExtResource("1_s6gpx")
 
 [node name="background" type="Polygon2D" parent="."]
-visible = false
 position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("1_ir80p")]
@@ -135,6 +133,7 @@ offset_bottom = 370.0
 text = "pls let me try again"
 
 [node name="skill_board" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="skill_board"]
 anchors_preset = -1
