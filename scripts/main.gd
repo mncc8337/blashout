@@ -19,9 +19,9 @@ var current_foe_count_max:int = 20
 var wave_count:int = 1
 
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
-enum SKILL {CAT_VISION, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, FURIOUS, TOMB_RAIDER, EARTH_QUAKE}
+enum SKILL {CAT_VISION, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, FURIOUS, TOMB_RAIDER, EARTH_QUAKE, WITCH}
 
-var skilllist = [0, 1, 2, 3, 4, 5, 6, 7]
+var skilllist = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 var skill_goal:int = 10
 
 var panel1_label
@@ -68,6 +68,10 @@ func fetch_skill(skill):
 		info[0] = "earth quake"
 		info[1] = "res://imgs/skillimg.png"
 		info[2] = "reduce the number of grave by 25%"
+	elif skill == SKILL.WITCH:
+		info[0] = "witch"
+		info[1] = "res://imgs/skillimg.png"
+		info[2] = "instantly heal 25% of your health"
 
 	return info
 
@@ -104,6 +108,8 @@ func apply_skill(skill):
 		var num = ceil(all_grave.size() * 0.25)
 		for i in num:
 			all_grave[i].queue_clear()
+	elif skill == SKILL.WITCH:
+		$player.health = clamp($player.health + 0.25 * $player.max_health, 0, $player.max_health)
 
 func choose_skill(x):
 	apply_skill(skilllist[x])
