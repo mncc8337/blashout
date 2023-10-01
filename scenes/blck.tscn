@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://biwhw5vahhhie"]
+[gd_scene load_steps=5 format=3 uid="uid://bdtknlk2qmu1v"]
 
 [ext_resource type="Texture2D" uid="uid://cur22yoxn2oxi" path="res://imgs/block.png" id="1_mhg6f"]
-[ext_resource type="Texture2D" uid="uid://eperkyusood0" path="res://imgs/light_blk.png" id="2_8k68d"]
+
+[sub_resource type="Gradient" id="Gradient_o4y51"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1x747"]
+gradient = SubResource("Gradient_o4y51")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yp3ur"]
 cull_mode = 1
@@ -18,12 +24,11 @@ polygon = PackedVector2Array(9, -9, -9, -9, -9, 9, 9, 9)
 texture = ExtResource("1_mhg6f")
 
 [node name="PointLight2D" type="PointLight2D" parent="CollisionPolygon2D2/Sprite2D2"]
-position = Vector2(3.57628e-07, 0.25)
-scale = Vector2(2.59965, 2.68631)
+scale = Vector2(6.25, 1600)
 color = Color(1, 1, 1, 0.290196)
 energy = 7.85
 blend_mode = 2
-texture = ExtResource("2_8k68d")
+texture = SubResource("GradientTexture1D_1x747")
 texture_scale = 0.01
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="CollisionPolygon2D2"]
