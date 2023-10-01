@@ -7,6 +7,7 @@ var rng = RandomNumberGenerator.new()
 @export var difficulty_time:float = 30
 @export var foe_spawn_delay:float = 1
 @onready var foe_model = preload("res://scenes/foe.tscn")
+@onready var block_model = preload("res://scenes/blck.tscn")
 var foe_attack_dmg_max:float = 10
 var foe_speed_max:float = 600.0
 var foe_health_max:float = 100
@@ -36,7 +37,13 @@ func spawn_foe():
 	var foe_instance = foe_model.instantiate()
 	var angle = rng.randf_range(-PI, PI)
 	var dir = Vector2(cos(angle), sin(angle)) * 200 + $player.position
+	dir.x = clamp(dir.x, 0.5, 1365.5)
+	dir.y = clamp(dir.y, 0.5, 767.5)
+	var l = (dir - $player.position).length()
+	if l < 200:
+		dir = (Vector2(683, 384) - $player.position) * 200
 	foe_instance.position = dir
+
 	var foe_class = rng.randi_range(0, 2)
 	if foe_class == FOE_CLASS.RANDOM:
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.5, 1)

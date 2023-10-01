@@ -24,6 +24,12 @@ func receive_damage(damage):
 	health -= damage
 	if health <= 0:
 		#do sth before this
+		var main = $"../../../main"
+		var rnd = main.rng.randi_range(1, 100)
+		if rnd < 10:
+			var block_instance = main.block_model.instantiate()
+			block_instance.position = position
+			main.add_child(block_instance)
 		self.queue_free()
 
 func _process(delta):

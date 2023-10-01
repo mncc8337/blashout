@@ -68,7 +68,7 @@ texture = ExtResource("2_yr8mj")
 [node name="flashlight" type="PointLight2D" parent="."]
 position = Vector2(-25, -16)
 rotation = 3.14159
-scale = Vector2(0.47, 0.63)
+scale = Vector2(0.31, 0.4)
 color = Color(0.603922, 0, 1, 1)
 energy = 3.0
 range_z_max = 3000
@@ -133,3 +133,6 @@ autostart = true
 
 [node name="walksound_delay" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true

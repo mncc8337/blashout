@@ -15,12 +15,15 @@ var is_running = false
 @export var audio_stream: AudioStream
 @export var max_attack_dmg:float = 3
 @export var healing_time:float = 30
+@export var max_health:float = 100
 var attack_dmg:float
 var health:float = 100
 var stamina:float = 100
 var is_exhausted = false
 
 func _ready():
+	health = max_health
+	
 	viewport = get_viewport()
 	camera = viewport.get_camera_2d()
 	
@@ -33,7 +36,7 @@ func walking_sound():
 	var ASP = AudioStreamPlayer2D.new()
 	main.add_child(ASP)
 	ASP.stream = audio_stream
-	ASP.global_position = self.global_position
+	ASP.global_position = global_position
 	ASP.finished.connect(ASP.queue_free)
 	ASP.play()
 
@@ -106,12 +109,10 @@ func _physics_process(delta):
 			ray.remove_exception(obj)
 			dmg_multiplier *= 0.9
 	
-	$walksound_delay.wait_time = 1 / speed_multiplier * 0.4
-	print($walksound_delay.is_stopped())
+	$walksound_delay.wait_time = clamp(1 / speed_multiplier * 0.4, 0, 1.5)
 	if dir != Vector2.ZERO:
 		if $walksound_delay.is_stopped():
 			walking_sound()
-			print("yes")
 			$walksound_delay.start()
 		
 	velocity *= 1 - FRICTION
