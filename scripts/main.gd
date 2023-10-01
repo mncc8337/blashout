@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
 var foe_attack_dmg_max:float = 10
-var foe_speed_max:float = 1000.0
+var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
@@ -46,11 +46,11 @@ func fetch_skill(skill):
 	elif skill == SKILL.LARGER_LIGHT:
 		info[0] = "larger light"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "make your light reach 5% further"
+		info[2] = "make your light reach 7% further"
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
 		info[1] = "res://imgs/skillimg.png"
-		info[2] = "increase your stamina by 7%"
+		info[2] = "increase your stamina and your base speed by 7%"
 	elif skill == SKILL.MEDIC:
 		info[0] = "medic"
 		info[1] = "res://imgs/skillimg.png"
@@ -75,12 +75,13 @@ func apply_skill(skill):
 	elif skill == SKILL.STRONGER_LIGHT:
 		$player.max_attack_dmg *= 1.1
 	elif skill == SKILL.LARGER_LIGHT:
-		$player.get_node("flashlight").scale.x *= 1.05
+		$player.get_node("flashlight").scale.x *= 1.07
 		if $player.get_node("flashlight").scale.x >= 0.5:
 			$player.get_node("flashlight").scale.x = 0.5
 			skilllist.erase(SKILL.LARGER_LIGHT)
 	elif skill == SKILL.RUNNER:
 		$player.max_stamina *= 1.07
+		$player.SPEED *= 1.07
 	elif skill == SKILL.MEDIC:
 		$player.get_node("healing_timer").wait_time *= 0.95
 		if $player.get_node("healing_timer").wait_time < 10:
@@ -135,8 +136,7 @@ func increase_diff():
 		$foe_spawn_timer.wait_time *= 0.95
 	if foe_attack_dmg_max < 30:
 		foe_attack_dmg_max *= 1.05
-	if foe_speed_max < 1500:
-		foe_speed_max *= 1.05
+	foe_speed_max *= 1.01
 	foe_health_max *= 1.05
 	if foe_attack_cooldown_max > 0.5:
 		foe_attack_cooldown_max *= 0.95
