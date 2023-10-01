@@ -12,8 +12,6 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
-@export var xwalk= 0
-@export var walking_steps_delay = 0.4
 @export var audio_stream: AudioStream
 @export var max_attack_dmg:float = 3
 @export var healing_time:float = 30
@@ -30,13 +28,18 @@ func _ready():
 	someone_attack_me_help.connect(on_being_attacked)
 	$healing_timer.wait_time = healing_time
 	$healing_timer.timeout.connect(heal)
-	$walking_sound_delayness.wait_time = walking_steps_delay
+
+func walking_sound():
+	var ASP = AudioStreamPlayer2D.new()
+	main.add_child(ASP)
+	ASP.stream = audio_stream
+	ASP.global_position = self.global_position
+	ASP.finished.connect(ASP.queue_free)
+	ASP.play()
 
 func heal():
 	health = clamp(health + 5, 0, 100)
-func iabs(n):
-	if n < 0: return -n
-	return n
+
 func on_being_attacked(damage):
 	health -= damage
 	if health <= 0:
@@ -60,14 +63,11 @@ func _physics_process(delta):
 	
 	if is_exhausted:
 		is_running = false
-		xwalk=-0.15
-		if stamina >= 50: xwalk=-0.05
 		speed_multiplier = clamp((stamina + 10) / 100, 0, 1)
 	if is_running:
 		speed_multiplier = 2.5
-		xwalk=0.1
 	velocity += dir.normalized() * SPEED * speed_multiplier * delta
-	$walking_sound_delayness.wait_time = walking_steps_delay-xwalk
+
 	if dir == Vector2.ZERO or speed_multiplier < 0.5:
 		if stamina < 100:
 			stamina += 0.25
@@ -81,7 +81,6 @@ func _physics_process(delta):
 			stamina = 0
 		
 	if dir == Vector2.ZERO or !is_running:
-		xwalk=0
 		look_at(viewport.get_mouse_position())
 	else:
 		current_dir = current_dir.lerp(dir, 0.5)
@@ -106,20 +105,14 @@ func _physics_process(delta):
 			obj.being_attacked.emit(attack_dmg * dmg_multiplier)
 			ray.remove_exception(obj)
 			dmg_multiplier *= 0.9
-	#sfx		
-	var ASP = AudioStreamPlayer2D.new()
-	main.add_child(ASP)
-	ASP.stream = audio_stream
-	ASP.global_position=self.global_position
-	ASP.finished.connect(ASP.queue_free)
 	
-	if velocity != Vector2.ZERO:
-		if $walking_sound_delayness.is_stopped():
-			ASP.play()
-			$walking_sound_delayness.start()
-	if iabs(int(velocity.x)) + iabs(int(velocity.y)) < 10:
-		ASP.stop()
-		$walking_sound_delayness.stop()
+	$walksound_delay.wait_time = 1 / speed_multiplier * 0.4
+	print($walksound_delay.is_stopped())
+	if dir != Vector2.ZERO:
+		if $walksound_delay.is_stopped():
+			walking_sound()
+			print("yes")
+			$walksound_delay.start()
 		
 	velocity *= 1 - FRICTION
 

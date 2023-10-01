@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal being_attacked(damage)
 
 var SPEED = 600.0
+@export var max_health:float = 100
 var health = 100.0
 @export var attack_dmg = 10
 @export var attack_range = 50 # in px
@@ -12,6 +13,8 @@ var health = 100.0
 var sqr_attack_range
 
 func _ready():
+	health = max_health
+	
 	$attack_cooldown.wait_time = attack_cooldown
 	sqr_attack_range = attack_range * attack_range
 	
@@ -24,7 +27,7 @@ func receive_damage(damage):
 		self.queue_free()
 
 func _process(delta):
-	$healthbar.visible = health < 100
+	$healthbar.visible = health < max_health
 	$healthbar.value = health
 
 func _physics_process(delta):
