@@ -43,7 +43,7 @@ font_size = 64
 font_size = 52
 
 [sub_resource type="LabelSettings" id="LabelSettings_uawwg"]
-font_size = 24
+font_size = 18
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_s6gpx")
@@ -135,7 +135,6 @@ offset_bottom = 370.0
 text = "pls let me try again"
 
 [node name="skill_board" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="skill_board"]
 anchors_preset = -1
@@ -152,11 +151,16 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -178,17 +182,27 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="Button" type="Button" parent="skill_board/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "select"
+
 [node name="Panel2" type="Panel" parent="skill_board/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel2"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
@@ -204,11 +218,16 @@ stretch_mode = 3
 
 [node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+text = "Lorem ipsum dolor sit amet"
 label_settings = SubResource("LabelSettings_uawwg")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Button" type="Button" parent="skill_board/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "select"
 
 [node name="Panel3" type="Panel" parent="skill_board/HBoxContainer"]
 layout_mode = 2
@@ -216,11 +235,16 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="skill_board/HBoxContainer/Panel3"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
@@ -236,11 +260,16 @@ stretch_mode = 3
 
 [node name="Label2" type="Label" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.nsectetur adipiscing elit, sed do eiusmod tempor incididunt ut."
 label_settings = SubResource("LabelSettings_uawwg")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Button" type="Button" parent="skill_board/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "select"
 
 [node name="foe_spawn_timer" type="Timer" parent="."]
 autostart = true
