@@ -9,6 +9,7 @@ var health = 100.0
 @export var attack_range = 50 # in px
 @export var attack_cooldown = 1.5
 @onready var player = $"../../player"
+var die = false
 
 var sqr_attack_range
 
@@ -21,6 +22,9 @@ func _ready():
 	being_attacked.connect(receive_damage)
 
 func receive_damage(damage):
+	if die:
+		return
+
 	health -= damage
 	if health <= 0:
 		#do sth before this
@@ -30,7 +34,11 @@ func receive_damage(damage):
 			var block_instance = main.block_model.instantiate()
 			block_instance.position = position
 			main.add_child(block_instance)
+		main.foe_killed += 1
+		main.foe_killed_total += 1
+		die = true
 		self.queue_free()
+		return
 
 func _process(delta):
 	$healthbar.visible = health < max_health

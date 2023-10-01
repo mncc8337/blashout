@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=15 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
-[ext_resource type="Script" path="res://scripts/UI.gd" id="3_cbocj"]
 [ext_resource type="Texture2D" uid="uid://dcw76xm15b1e7" path="res://imgs/skillimg.png" id="5_boj1d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
@@ -51,7 +50,7 @@ script = ExtResource("1_s6gpx")
 [node name="background" type="Polygon2D" parent="."]
 position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
-polygon = PackedVector2Array(-169, -181, 1244, -183, 1229, 759, -168, 759)
+polygon = PackedVector2Array(-172, -101, 1252, -103, 1234, 731, -168, 715)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
@@ -83,9 +82,7 @@ offset = Vector2(683, 384)
 
 [node name="foes" type="Node" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("3_cbocj")
-player = NodePath("../player")
+[node name="UI" type="CanvasLayer" parent="."]
 
 [node name="healthbar" type="ProgressBar" parent="UI"]
 offset_left = 11.0
@@ -111,6 +108,16 @@ offset_right = 183.0
 offset_bottom = 114.0
 theme = SubResource("Theme_bctt7")
 text = "concu chim"
+
+[node name="info" type="Label" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme = SubResource("Theme_bctt7")
+text = "concu chim"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="death_UI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -271,8 +278,8 @@ size_flags_vertical = 10
 text = "select"
 
 [node name="foe_spawn_timer" type="Timer" parent="."]
-autostart = true
 
-[node name="difficulty_timer" type="Timer" parent="."]
-wait_time = 30.0
+[node name="wave_start_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
 autostart = true

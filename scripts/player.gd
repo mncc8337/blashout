@@ -20,6 +20,7 @@ var attack_dmg:float
 var health:float = 100
 var stamina:float = 100
 var is_exhausted = false
+var furious:bool = false
 
 func _ready():
 	health = max_health
@@ -83,7 +84,7 @@ func _physics_process(delta):
 			is_exhausted = true
 			stamina = 0
 		
-	if dir == Vector2.ZERO or !is_running:
+	if dir == Vector2.ZERO or !is_running or furious:
 		look_at(viewport.get_mouse_position())
 	else:
 		current_dir = current_dir.lerp(dir, 0.5)
