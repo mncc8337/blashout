@@ -30,3 +30,6 @@ scale = Vector2(1, 0.495)
 theme = SubResource("Theme_ctdp7")
 value = 33.0
 show_percentage = false
+
+[node name="attack_cooldown" type="Timer" parent="."]
+one_shot = true

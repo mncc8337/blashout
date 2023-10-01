@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal someone_attack_me_help
+signal someone_attack_me_help(damage)
 
 const SPEED = 600.0
 const FRICTION = 0.1
@@ -18,6 +18,11 @@ var is_exhausted = false
 func _ready():
 	viewport = get_viewport()
 	camera = viewport.get_camera_2d()
+	
+	someone_attack_me_help.connect(on_being_attacked)
+
+func on_being_attacked(damage):
+	health -= damage
 
 func _physics_process(delta):
 	var dir = Vector2.ZERO
