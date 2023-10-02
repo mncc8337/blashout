@@ -28,6 +28,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0.788235), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("die_sound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_0nccc"]
 resource_name = "spawn"
@@ -67,7 +79,7 @@ attack_range = 0
 attack_cooldown = 0.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(1, 1, 1, 0.788235)
+color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(2.17654, -2.90206, 3, -2, 2.90206, 6.04595, -4, 6, -4, -2, -3, -3)
 
 [node name="Polygon2D2" type="CollisionPolygon2D" parent="."]
@@ -178,5 +190,5 @@ libraries = {
 
 [node name="die_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_1wf67")
-
-[node name="spawn_sound" type="AudioStreamPlayer" parent="."]
+volume_db = -21.926
+pitch_scale = 2.59

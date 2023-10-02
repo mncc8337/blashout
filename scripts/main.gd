@@ -109,6 +109,7 @@ func apply_skill(skill):
 
 func choose_skill(x):
 	apply_skill(skilllist[x])
+	$skill_choose_sound.play()
 	$skill_panel.visible = false
 	get_tree().paused = false
 

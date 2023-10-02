@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=21 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
 [ext_resource type="PackedScene" uid="uid://bxulq4dqfklbs" path="res://scenes/blck.tscn" id="6_sfb4o"]
 [ext_resource type="AudioStream" uid="uid://bsxu5tqbk4hmt" path="res://sfx/storm.mp3" id="7_g4lc1"]
+[ext_resource type="AudioStream" uid="uid://y2vljcxi556g" path="res://sfx/selection.wav" id="8_wbf00"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -408,3 +409,8 @@ stream = ExtResource("7_g4lc1")
 volume_db = -30.0
 pitch_scale = 0.5
 autoplay = true
+
+[node name="skill_choose_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_wbf00")
+volume_db = -31.271
+pitch_scale = 0.97
