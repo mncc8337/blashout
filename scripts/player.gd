@@ -79,7 +79,7 @@ func _physics_process(delta):
 			stamina = clamp(stamina + 0.25, 0, max_stamina)
 		else:
 			is_exhausted = false
-	if is_running and dir != Vector2.ZERO:
+	if is_running and dir != Vector2.ZERO and !main.demo_scene:
 		if stamina > 0:
 			stamina -= 0.5
 		else:
