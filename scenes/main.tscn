@@ -412,5 +412,5 @@ autoplay = true
 
 [node name="skill_choose_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_wbf00")
-volume_db = -31.271
+volume_db = -17.775
 pitch_scale = 0.97
