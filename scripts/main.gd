@@ -12,6 +12,8 @@ var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
+var survived_time:float = 0
+
 @export var demo_scene:bool = false
 
 @export var max_blue_thing_count:int = 5
@@ -215,6 +217,7 @@ func spawn_foe():
 
 func show_death_screen():
 	get_tree().paused = true
+	$death_UI/info.text = "survived %d waves for %d seconds and killed %d ghosts" % [wave_count, survived_time+.5, foe_killed_total]
 	$death_UI.visible = true
 
 func replay():
@@ -238,6 +241,7 @@ func new_wave():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	survived_time += delta
 	if Input.is_action_just_pressed("pause_game") and !demo_scene:
 		pause_game()
 	
@@ -258,10 +262,12 @@ func _process(delta):
 			current_foe_count_max += 1
 		return
 	
+	$UI/info2.text = "wave %d\n%d ghosts killed" % [wave_count, foe_killed_total]
+	
 	if !$wave_start_timer.is_stopped():
 		$UI/info.text = "wave %d start in %d" % [wave_count, $wave_start_timer.time_left]
 	else:
-		$UI/info.text = str(current_foe_count_max - foe_killed) + '/' + str(current_foe_count_max) + " foe(s) remain"
+		$UI/info.text = str(current_foe_count_max - foe_killed) + '/' + str(current_foe_count_max) + " ghost(s) remain"
 
 	if foe_killed == current_foe_count_max:
 		new_wave()

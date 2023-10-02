@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dr18dq40af6nj"]
+[gd_scene load_steps=22 format=3 uid="uid://dr18dq40af6nj"]
 
 [ext_resource type="Script" path="res://scripts/mainmenu.gd" id="1_4xe3g"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="2_iljr0"]
@@ -51,8 +51,13 @@ font_size = 18
 [sub_resource type="LabelSettings" id="LabelSettings_87pqk"]
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_srnin"]
+font_size = 102
+font_color = Color(0.729412, 0.780392, 0.92549, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_28hdh"]
-font_size = 128
+font_size = 18
+font_color = Color(0.364706, 0.364706, 0.364706, 1)
 
 [node name="main" type="Node2D"]
 script = ExtResource("2_iljr0")
@@ -388,8 +393,38 @@ anchor_bottom = 0.1
 offset_bottom = 91.0
 grow_horizontal = 2
 text = "blashout"
-label_settings = SubResource("LabelSettings_28hdh")
+label_settings = SubResource("LabelSettings_srnin")
 horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.99
+anchor_right = 0.01
+anchor_bottom = 0.99
+offset_top = -91.0
+offset_right = 312.0
+grow_vertical = 0
+text = "WASD: movement
+left shift: run
+use your mouse to redirect the light
+goal: survive as long as you can"
+label_settings = SubResource("LabelSettings_28hdh")
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.995
+anchor_top = 0.99
+anchor_right = 0.995
+anchor_bottom = 0.99
+offset_left = -343.0
+offset_top = -29.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "a game by mncc8337 and TerminalGoat"
+label_settings = SubResource("LabelSettings_28hdh")
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
