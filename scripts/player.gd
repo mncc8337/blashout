@@ -36,10 +36,10 @@ func _ready():
 	$healing_timer.timeout.connect(heal)
 
 func walking_sound():
-	var ASP = AudioStreamPlayer2D.new()
+	var ASP = AudioStreamPlayer.new()
 	main.add_child(ASP)
+	ASP.volume_db = -10
 	ASP.stream = audio_stream
-	ASP.global_position = global_position
 	ASP.finished.connect(ASP.queue_free)
 	ASP.play()
 
