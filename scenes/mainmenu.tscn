@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dr18dq40af6nj"]
+[gd_scene load_steps=20 format=3 uid="uid://dr18dq40af6nj"]
 
 [ext_resource type="Script" path="res://scripts/mainmenu.gd" id="1_4xe3g"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="2_iljr0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="4_x7ckg"]
 [ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="5_5s3yk"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="6_2h0dc"]
+[ext_resource type="PackedScene" uid="uid://bxulq4dqfklbs" path="res://scenes/blck.tscn" id="6_5i1p1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -111,6 +112,18 @@ color = Color(0, 0, 0, 1)
 offset = Vector2(683, 384)
 
 [node name="foes" type="Node" parent="."]
+
+[node name="block" parent="foes" instance=ExtResource("6_5i1p1")]
+position = Vector2(431, 580)
+
+[node name="block2" parent="foes" instance=ExtResource("6_5i1p1")]
+position = Vector2(946, 503)
+
+[node name="block3" parent="foes" instance=ExtResource("6_5i1p1")]
+position = Vector2(831, 233)
+
+[node name="block4" parent="foes" instance=ExtResource("6_5i1p1")]
+position = Vector2(712, 494)
 
 [node name="graves" type="Node" parent="."]
 

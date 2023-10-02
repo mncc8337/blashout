@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxulq4dqfklbs"]
+[gd_scene load_steps=4 format=3 uid="uid://t3vemja66ifr"]
 
 [ext_resource type="Script" path="res://scripts/blck.gd" id="1_h8j5a"]
 [ext_resource type="Texture2D" uid="uid://dvh7ulosghhm5" path="res://imgs/speedbumpidk.png" id="1_ifqtg"]

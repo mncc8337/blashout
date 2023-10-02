@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=18 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="5_lssb2"]
 [ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
+[ext_resource type="PackedScene" uid="uid://bxulq4dqfklbs" path="res://scenes/blck.tscn" id="6_sfb4o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -106,6 +107,9 @@ color = Color(0, 0, 0, 1)
 offset = Vector2(683, 384)
 
 [node name="foes" type="Node" parent="."]
+
+[node name="block" parent="foes" instance=ExtResource("6_sfb4o")]
+position = Vector2(431, 580)
 
 [node name="graves" type="Node" parent="."]
 

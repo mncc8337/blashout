@@ -6,12 +6,16 @@ var rng = RandomNumberGenerator.new()
 
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
+@onready var blue_model = preload("res://scenes/blck.tscn")
 var foe_attack_dmg_max:float = 10
 var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
 @export var demo_scene:bool = false
+
+@export var max_blue_thing_count:int = 5
+var blue_thing_count:int = 0
 
 @export var foe_spawn_delay:float = 1.5
 var foe_spawned:int = 0
@@ -217,8 +221,16 @@ func replay():
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
+func spawn_blue_thing():
+	var instance = blue_model.instantiate()
+	instance.position = Vector2(rng.randf_range(0, 1300), rng.randf_range(0, 700))
+	$foes.add_child(instance)
+
 func new_wave():
 	wave_count += 1
+	if wave_count % 5 == 0 and blue_thing_count < max_blue_thing_count:
+		spawn_blue_thing()
+		blue_thing_count += 1
 	foe_killed = 0
 	foe_spawned = 0
 	increase_diff()
