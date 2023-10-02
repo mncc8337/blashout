@@ -11,6 +11,8 @@ var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
+@export var demo_scene:bool = false
+
 @export var foe_spawn_delay:float = 1.5
 var foe_spawned:int = 0
 var foe_killed:int = 0
@@ -116,29 +118,41 @@ func unpause_game():
 	$pause_menu.visible = false
 	get_tree().paused = false
 
+func to_main_menu():
+	get_tree().change_scene_to_file("res://scenes/mainmenu.tscn")
+
 func _ready():
-	$UI/pause.button_down.connect(pause_game)
-	$pause_menu/VBoxContainer/Button.button_down.connect(unpause_game)
-	
-	died.connect(show_death_screen)
-	$death_UI/Button.button_down.connect(replay)
-	
 	$foe_spawn_timer.wait_time = foe_spawn_delay
 	$foe_spawn_timer.timeout.connect(spawn_foe)
-	
-	$wave_start_timer.timeout.connect(start_wave)
-	
-	panel1_label = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label
-	panel1_desc = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label2
-	$skill_panel/HBoxContainer/Panel/VBoxContainer/Button.button_down.connect(choose_skill1)
 
-	panel2_label = $skill_panel/HBoxContainer/Panel2/VBoxContainer/Label
-	panel2_desc = $skill_panel/HBoxContainer/Panel2/VBoxContainer/Label2
-	$skill_panel/HBoxContainer/Panel2/VBoxContainer/Button.button_down.connect(choose_skill2)
+	if !demo_scene:
+		$UI/pause.button_down.connect(pause_game)
+		$pause_menu/VBoxContainer/Button.button_down.connect(unpause_game)
+		$pause_menu/VBoxContainer/Button2.button_down.connect(to_main_menu)
+		
+		died.connect(show_death_screen)
+		$death_UI/Button.button_down.connect(replay)
+		
+		$wave_start_timer.timeout.connect(start_wave)
+		
+		panel1_label = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label
+		panel1_desc = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label2
+		$skill_panel/HBoxContainer/Panel/VBoxContainer/Button.button_down.connect(choose_skill1)
 
-	panel3_label = $skill_panel/HBoxContainer/Panel3/VBoxContainer/Label
-	panel3_desc = $skill_panel/HBoxContainer/Panel3/VBoxContainer/Label2
-	$skill_panel/HBoxContainer/Panel3/VBoxContainer/Button.button_down.connect(choose_skill3)
+		panel2_label = $skill_panel/HBoxContainer/Panel2/VBoxContainer/Label
+		panel2_desc = $skill_panel/HBoxContainer/Panel2/VBoxContainer/Label2
+		$skill_panel/HBoxContainer/Panel2/VBoxContainer/Button.button_down.connect(choose_skill2)
+
+		panel3_label = $skill_panel/HBoxContainer/Panel3/VBoxContainer/Label
+		panel3_desc = $skill_panel/HBoxContainer/Panel3/VBoxContainer/Label2
+		$skill_panel/HBoxContainer/Panel3/VBoxContainer/Button.button_down.connect(choose_skill3)
+	else:
+		$UI.visible = false
+		$wave_start_timer.autostart = false
+		current_foe_count_max = 100
+		foe_attack_dmg_max = 0
+		$foe_spawn_timer.wait_time = 0.5
+		$foe_spawn_timer.start()
 
 func start_wave():
 	$foe_spawn_timer.start()
@@ -162,7 +176,8 @@ func increase_diff():
 
 func spawn_foe():
 	if foe_spawned == current_foe_count_max:
-		$foe_spawn_timer.stop()
+		if !demo_scene:
+			$foe_spawn_timer.stop()
 		return
 	
 	var foe_instance = foe_model.instantiate()
@@ -210,7 +225,7 @@ func new_wave():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("pause_game"):
+	if Input.is_action_just_pressed("pause_game") and !demo_scene:
 		pause_game()
 	
 	$UI/VBoxContainer.size.x = get_viewport().get_size().x * 0.15
@@ -223,6 +238,12 @@ func _process(delta):
 		$UI/VBoxContainer/exhausted.text = "Exhausted!"
 	else:
 		$UI/VBoxContainer/exhausted.text = ""
+	
+	if demo_scene:
+		if foe_killed > 0:
+			foe_killed = 0
+			current_foe_count_max += 1
+		return
 	
 	if !$wave_start_timer.is_stopped():
 		$UI/info.text = "wave %d start in %d" % [wave_count, $wave_start_timer.time_left]
