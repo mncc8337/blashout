@@ -10,6 +10,8 @@ cull_mode = 1
 polygon = PackedVector2Array(-22.2, -8.2, -22.2, 11.8, -15.2, 15.8, -1.2, 14.8, 6.8, 8.8, 5.8, -5.2, -0.199999, -13.2, -13.2, -14.2)
 
 [node name="player" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_kgmdb")
 audio_stream = ExtResource("2_tdco3")
 

@@ -13,7 +13,7 @@ var is_running = false
 @export var SPEED:float = 600.0
 @export var audio_stream: AudioStream
 @export var max_attack_dmg:float = 10
-@export var healing_time:float = 30
+@export var healing_time:float = 20
 @export var max_health:float = 100
 @export var max_stamina:float = 100
 var attack_dmg:float
@@ -44,7 +44,7 @@ func walking_sound():
 	ASP.play()
 
 func heal():
-	health = clamp(health + 5, 0, max_health)
+	health = clamp(health * 1.05, 0, max_health)
 
 func on_being_attacked(damage):
 	health -= damage
