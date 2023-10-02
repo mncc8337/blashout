@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=17 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
@@ -44,6 +44,9 @@ font_size = 36
 
 [sub_resource type="LabelSettings" id="LabelSettings_uawwg"]
 font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_87pqk"]
+font_size = 64
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_s6gpx")
@@ -114,17 +117,21 @@ anchor_left = 0.03
 anchor_top = 0.05
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -58.1849
+offset_left = 0.0200005
+offset_top = -0.400002
+offset_right = -1116.0
 size_flags_vertical = 0
 
 [node name="healthbar" type="ProgressBar" parent="UI/VBoxContainer"]
 layout_mode = 2
+tooltip_text = "player health"
 theme = SubResource("Theme_4ddnc")
 value = 75.0
 rounded = true
 
 [node name="staminabar" type="ProgressBar" parent="UI/VBoxContainer"]
 layout_mode = 2
+tooltip_text = "player stamina"
 theme = SubResource("Theme_6h42r")
 value = 75.0
 
@@ -146,7 +153,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="death_UI" type="CanvasLayer" parent="."]
-process_mode = 3
+process_mode = 2
 visible = false
 
 [node name="Label" type="Label" parent="death_UI"]
@@ -173,7 +180,7 @@ grow_vertical = 2
 text = "pls lemme try again"
 
 [node name="skill_panel" type="CanvasLayer" parent="."]
-process_mode = 3
+process_mode = 2
 visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="skill_panel"]
@@ -284,9 +291,51 @@ layout_mode = 2
 size_flags_vertical = 10
 text = "select"
 
+[node name="pause_menu" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="background" type="Polygon2D" parent="pause_menu"]
+position = Vector2(151, 82)
+color = Color(0.376471, 0.376471, 0.376471, 0.560784)
+polygon = PackedVector2Array(-822, -485, 1998, -666, 1939, 1309, -888, 1165)
+
+[node name="Label" type="Label" parent="pause_menu"]
+anchors_preset = -1
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.2
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "paused"
+label_settings = SubResource("LabelSettings_87pqk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu"]
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.5
+anchor_right = 0.55
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = -33.0
+offset_right = 58.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+text = "continue"
+
+[node name="Button2" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+text = "to main menu"
+
 [node name="foe_spawn_timer" type="Timer" parent="."]
 
 [node name="wave_start_timer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 10.0
 one_shot = true
 autostart = true

@@ -108,6 +108,14 @@ func choose_skill1(): choose_skill(0)
 func choose_skill2(): choose_skill(1)
 func choose_skill3(): choose_skill(2)
 
+func pause_game():
+	$pause_menu.visible = true
+	get_tree().paused = true
+
+func unpause_game():
+	$pause_menu.visible = false
+	get_tree().paused = false
+
 func _ready():
 	died.connect(show_death_screen)
 	$death_UI/Button.button_down.connect(replay)
@@ -199,6 +207,10 @@ func new_wave():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("pause_game"):
+		pause_game()
+	$pause_menu/VBoxContainer/Button.button_down.connect(unpause_game)
+	
 	$UI/VBoxContainer.size.x = get_viewport().get_size().x * 0.15
 	$UI/VBoxContainer/healthbar.max_value = ceil($player.max_health)
 	$UI/VBoxContainer/healthbar.value = ceil($player.health)
