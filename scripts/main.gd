@@ -132,7 +132,8 @@ func _ready():
 		$pause_menu/VBoxContainer/Button2.button_down.connect(to_main_menu)
 		
 		died.connect(show_death_screen)
-		$death_UI/Button.button_down.connect(replay)
+		$death_UI/VBoxContainer/try.button_down.connect(replay)
+		$death_UI/VBoxContainer/quit.button_down.connect(to_main_menu)
 		
 		$wave_start_timer.timeout.connect(start_wave)
 		
