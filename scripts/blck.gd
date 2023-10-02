@@ -11,17 +11,13 @@ func _ready():
 func _process(delta):
 	return
 func _physics_process(delta):
-	
-	$block_moving_timer.wait_time = block_moving_delay
+	#if player.position.x
+	#$block_moving_timer.wait_time = block_moving_delay
 	if $block_moving_timer.is_stopped():
 		self.position.x+=rng.randi_range(-1,1)*34
 		self.position.y+=rng.randi_range(-1,1)*34
-		if (self.position.x>1300 and self.position.y>700) or (self.position <= Vector2.ZERO):
-			self.position=Vector2(rng.randi_range(150,550),rng.randi_range(50,250))
 		move_and_slide()
 		$block_moving_timer.start()
-	
-	
 
 		
 

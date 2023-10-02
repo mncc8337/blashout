@@ -6,7 +6,6 @@ var rng = RandomNumberGenerator.new()
 
 @onready var foe_model = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
-@onready var spdbump_model = preload("res://scenes/blck.tscn")
 var foe_attack_dmg_max:float = 10
 var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
@@ -20,7 +19,7 @@ var foe_killed:int = 0
 var foe_killed_total:int = 0
 var current_foe_count_max:int = 20
 var wave_count:int = 1
-var bump_counter:int = 0
+
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
 enum SKILL {CAT_EYES, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, RECKLESS, TOMB_RAIDER, EARTH_QUAKE, WITCH}
 
@@ -44,7 +43,7 @@ func fetch_skill(skill):
 		info[1] = "increase your damage to ghost by 5%"
 	elif skill == SKILL.LARGER_LIGHT:
 		info[0] = "larger light"
-		info[1] = "make your light reach 5% further"
+		info[1] = "make your light reach 7% further"
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
 		info[1] = "increase your stamina and your base speed by 5%"
@@ -75,7 +74,7 @@ func apply_skill(skill):
 	elif skill == SKILL.STRONGER_LIGHT:
 		$player.max_attack_dmg *= 1.05
 	elif skill == SKILL.LARGER_LIGHT:
-		$player.get_node("flashlight").scale.x *= 1.05
+		$player.get_node("flashlight").scale.x *= 1.07
 		if $player.get_node("flashlight").scale.x >= 0.5:
 			$player.get_node("flashlight").scale.x = 0.5
 			skilllist.erase(SKILL.LARGER_LIGHT)
@@ -111,7 +110,6 @@ func choose_skill1(): choose_skill(0)
 func choose_skill2(): choose_skill(1)
 func choose_skill3(): choose_skill(2)
 
-
 func pause_game():
 	$pause_menu.visible = true
 	get_tree().paused = true
@@ -122,6 +120,7 @@ func unpause_game():
 
 func to_main_menu():
 	get_tree().change_scene_to_file("res://scenes/mainmenu.tscn")
+
 func _ready():
 	$foe_spawn_timer.wait_time = foe_spawn_delay
 	$foe_spawn_timer.timeout.connect(spawn_foe)
@@ -227,9 +226,9 @@ func new_wave():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
-	#if Input.is_action_just_pressed("pause_game") and !demo_scene:
-	#	pause_game()
+	if Input.is_action_just_pressed("pause_game") and !demo_scene:
+		pause_game()
+	
 	$UI/VBoxContainer.size.x = get_viewport().get_size().x * 0.15
 	$UI/VBoxContainer/healthbar.max_value = ceil($player.max_health)
 	$UI/VBoxContainer/healthbar.value = ceil($player.health)
@@ -274,11 +273,3 @@ func _process(delta):
 		panel3_label.text = s3info[0]
 		panel3_desc.text = s3info[1]
 		$skill_panel.visible = true
-	if bump_counter>12:return
-func _physics_process(delta):
-	if $wave_start_timer.is_stopped():
-		var block_instance = spdbump_model.instantiate()
-		block_instance.position = Vector2(rng.randi_range(1,48)*32,rng.randi_range(1,22)*32)
-		bump_counter+=1
-		$speedbumpers.add_child(block_instance)
-		if bump_counter > 12:block_instance.queue_free()
