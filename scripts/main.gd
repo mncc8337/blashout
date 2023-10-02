@@ -11,7 +11,7 @@ var foe_speed_max:float = 1300.0
 var foe_health_max:float = 100
 var foe_attack_cooldown_max:float = 1.5
 
-@export var foe_spawn_delay:float = 1
+@export var foe_spawn_delay:float = 1.5
 var foe_spawned:int = 0
 var foe_killed:int = 0
 var foe_killed_total:int = 0
@@ -21,7 +21,7 @@ var wave_count:int = 1
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
 enum SKILL {CAT_EYES, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, RECKLESS, TOMB_RAIDER, EARTH_QUAKE, WITCH}
 
-var skilllist = [0, 7, 8]
+var skilllist = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 var skill_goal:int = 10
 
 var panel1_label
@@ -35,7 +35,7 @@ func fetch_skill(skill):
 	var info = ["skill name", "skill description"]
 	if skill == SKILL.CAT_EYES:
 		info[0] = "cat eyes"
-		info[1] = "increase your base vision by 5%"
+		info[1] = "increase your base vision by 10%"
 	elif skill == SKILL.STRONGER_LIGHT:
 		info[0] = "stronger light"
 		info[1] = "increase your damage to ghost by 5%"
@@ -65,7 +65,7 @@ func fetch_skill(skill):
 
 func apply_skill(skill):
 	if skill == SKILL.CAT_EYES:
-		$player.get_node("vision").texture_scale *= 1.05
+		$player.get_node("vision").texture_scale *= 1.1
 		if $player.get_node("vision").texture_scale >= 15:
 			$player.get_node("vision").texture_scale = 15
 			skilllist.erase(SKILL.CAT_EYES)

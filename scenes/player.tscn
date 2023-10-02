@@ -58,7 +58,7 @@ occluder = SubResource("OccluderPolygon2D_g4b7h")
 [node name="vision" type="PointLight2D" parent="."]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("3_gigwj")
-texture_scale = 2.5
+texture_scale = 3.0
 
 [node name="Light (debug only)" type="Sprite2D" parent="."]
 visible = false

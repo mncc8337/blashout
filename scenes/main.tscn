@@ -97,7 +97,6 @@ position = Vector2(688.064, 715.906)
 scale = Vector2(1366, 1e-05)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -288,6 +287,6 @@ text = "select"
 [node name="foe_spawn_timer" type="Timer" parent="."]
 
 [node name="wave_start_timer" type="Timer" parent="."]
-wait_time = 7.0
+wait_time = 15.0
 one_shot = true
 autostart = true
