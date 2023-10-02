@@ -38,7 +38,8 @@ func _ready():
 func walking_sound():
 	var ASP = AudioStreamPlayer.new()
 	main.add_child(ASP)
-	ASP.volume_db = -10
+	ASP.volume_db = -15
+	ASP.pitch_scale = 1.0
 	ASP.stream = audio_stream
 	ASP.finished.connect(ASP.queue_free)
 	ASP.play()

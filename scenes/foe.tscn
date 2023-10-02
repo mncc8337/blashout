@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bycwegn7joe5n"]
+[gd_scene load_steps=9 format=3 uid="uid://bycwegn7joe5n"]
 
 [ext_resource type="Script" path="res://scripts/foe.gd" id="1_w5fsp"]
+[ext_resource type="AudioStream" uid="uid://b2g665r6fiubv" path="res://sfx/foe_die.wav" id="2_e15t5"]
+[ext_resource type="AudioStream" uid="uid://ypkgd3mmyogg" path="res://sfx/foe_spawn.wav" id="3_rvwil"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jaxkr"]
 bg_color = Color(1, 0.117647, 0.137255, 0.74902)
@@ -35,6 +37,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(3, 3), Vector2(1e-05, 1e-05)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("die_sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_4fs45"]
 resource_name = "spawn"
@@ -62,6 +76,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(3, 3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spawn_sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qwr4n"]
@@ -116,3 +142,11 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_qwr4n")
 }
+
+[node name="die_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_e15t5")
+volume_db = -12.801
+
+[node name="spawn_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rvwil")
+volume_db = -26.226
