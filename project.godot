@@ -10,10 +10,13 @@ config_version=5
 
 [application]
 
-config/name="ld54"
+config/name="blashout"
+config/description="a game by mncc8337 and TerminalGoat"
 run/main_scene="res://scenes/mainmenu.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+config/icon="res://icon.png"
 
 [display]
 

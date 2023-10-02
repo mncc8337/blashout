@@ -16,7 +16,7 @@ var survived_time:float = 0
 
 @export var demo_scene:bool = false
 
-@export var max_blue_thing_count:int = 5
+@export var max_blue_thing_count:int = 8
 var blue_thing_count:int = 0
 
 @export var foe_spawn_delay:float = 1.5
@@ -157,7 +157,7 @@ func _ready():
 	else:
 		$UI.visible = false
 		$wave_start_timer.autostart = false
-		current_foe_count_max = 100
+		current_foe_count_max = 50
 		foe_attack_dmg_max = 0
 		$foe_spawn_timer.wait_time = 0.5
 		$foe_spawn_timer.start()

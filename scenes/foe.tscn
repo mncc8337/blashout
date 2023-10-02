@@ -121,6 +121,7 @@ color = Color(1, 1, 1, 0.545098)
 polygon = PackedVector2Array(-3.33334, -4, -1.66667, -3.66667, -1, -1.33334, -1.66667, 1.33333, -4.33334, 1, -4.66666, -1.66667)
 
 [node name="healthbar" type="ProgressBar" parent="."]
+visible = false
 offset_left = -8.33333
 offset_top = -12.6667
 offset_right = 6.66667

@@ -165,6 +165,7 @@ polygon = PackedVector2Array(1.69287, -1.9347, 1.69287, -1.20919, -2.58618, -1.2
 occluder = SubResource("OccluderPolygon2D_p1j4g")
 
 [node name="healthbar" type="ProgressBar" parent="."]
+visible = false
 offset_left = -7.73881
 offset_top = -6.28779
 offset_right = 7.26119
