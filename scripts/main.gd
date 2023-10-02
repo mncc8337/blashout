@@ -41,7 +41,7 @@ func fetch_skill(skill):
 		info[1] = "increase your damage to ghost by 5%"
 	elif skill == SKILL.LARGER_LIGHT:
 		info[0] = "larger light"
-		info[1] = "make your light reach 5% further"
+		info[1] = "make your light reach 7% further"
 	elif skill == SKILL.RUNNER:
 		info[0] = "runner"
 		info[1] = "increase your stamina and your base speed by 5%"
@@ -72,7 +72,7 @@ func apply_skill(skill):
 	elif skill == SKILL.STRONGER_LIGHT:
 		$player.max_attack_dmg *= 1.05
 	elif skill == SKILL.LARGER_LIGHT:
-		$player.get_node("flashlight").scale.x *= 1.05
+		$player.get_node("flashlight").scale.x *= 1.07
 		if $player.get_node("flashlight").scale.x >= 0.5:
 			$player.get_node("flashlight").scale.x = 0.5
 			skilllist.erase(SKILL.LARGER_LIGHT)
@@ -117,6 +117,9 @@ func unpause_game():
 	get_tree().paused = false
 
 func _ready():
+	$UI/pause.button_down.connect(pause_game)
+	$pause_menu/VBoxContainer/Button.button_down.connect(unpause_game)
+	
 	died.connect(show_death_screen)
 	$death_UI/Button.button_down.connect(replay)
 	
@@ -209,7 +212,6 @@ func new_wave():
 func _process(delta):
 	if Input.is_action_just_pressed("pause_game"):
 		pause_game()
-	$pause_menu/VBoxContainer/Button.button_down.connect(unpause_game)
 	
 	$UI/VBoxContainer.size.x = get_viewport().get_size().x * 0.15
 	$UI/VBoxContainer/healthbar.max_value = ceil($player.max_health)
