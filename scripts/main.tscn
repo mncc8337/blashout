@@ -1,0 +1,366 @@
+[gd_scene load_steps=18 format=3 uid="uid://l0v0ojsdp6s8"]
+
+[ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
+[ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
+[ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="5_lssb2"]
+[ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
+[ext_resource type="AudioStream" uid="uid://c3krh22g2widw" path="res://bgm/blashoutokum.mp3" id="6_6r5gv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fubgv"]
+bg_color = Color(1, 0.117647, 0.137255, 0.74902)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_4ddnc"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_fubgv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2dpq"]
+bg_color = Color(0.454902, 0.564706, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkhp0"]
+bg_color = Color(0.447059, 0.564706, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_6h42r"]
+/styles/fill = SubResource("StyleBoxFlat_x2dpq")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_lkhp0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w0yb"]
+bg_color = Color(0, 0.333333, 1, 0.392157)
+
+[sub_resource type="Theme" id="Theme_bctt7"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5w0yb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_vxr47"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_nixyl"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_uawwg"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_87pqk"]
+font_size = 64
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_s6gpx")
+
+[node name="background" type="Polygon2D" parent="."]
+position = Vector2(151, 82)
+color = Color(0.184314, 0.184314, 0.184314, 1)
+polygon = PackedVector2Array(-822, -485, 1998, -666, 1939, 1309, -888, 1165)
+
+[node name="player" parent="." instance=ExtResource("1_ir80p")]
+position = Vector2(683, 384)
+
+[node name="walls" type="Node2D" parent="."]
+scale = Vector2(1.00136, 0.998738)
+
+[node name="WallSide1" type="Sprite2D" parent="walls"]
+position = Vector2(-202.18, 360.455)
+scale = Vector2(0.472589, 0.457814)
+texture = ExtResource("5_lssb2")
+
+[node name="WallSide2" type="Sprite2D" parent="walls"]
+position = Vector2(1589.66, 402.508)
+rotation = -3.14159
+scale = Vector2(0.506795, -0.457814)
+texture = ExtResource("5_lssb2")
+
+[node name="Wall" type="Sprite2D" parent="walls"]
+position = Vector2(753.975, -130.775)
+scale = Vector2(0.861213, 0.780206)
+texture = ExtResource("6_5xogt")
+
+[node name="Wall2" type="Sprite2D" parent="walls"]
+position = Vector2(701.047, 927.929)
+scale = Vector2(0.772969, -0.783365)
+texture = ExtResource("6_5xogt")
+
+[node name="wall" parent="walls" instance=ExtResource("2_222mk")]
+position = Vector2(51.9294, 384)
+scale = Vector2(1, 768)
+
+[node name="wall2" parent="walls" instance=ExtResource("2_222mk")]
+position = Vector2(1320.2, 384)
+scale = Vector2(1, 768)
+
+[node name="wall3" parent="walls" instance=ExtResource("2_222mk")]
+position = Vector2(683, 79.0998)
+scale = Vector2(1366, 1e-05)
+
+[node name="wall4" parent="walls" instance=ExtResource("2_222mk")]
+position = Vector2(688.064, 715.906)
+scale = Vector2(1366, 1e-05)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(683, 384)
+
+[node name="foes" type="Node" parent="."]
+
+[node name="graves" type="Node" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0200005
+offset_top = -0.400002
+offset_right = -1116.0
+size_flags_vertical = 0
+
+[node name="healthbar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "player health"
+theme = SubResource("Theme_4ddnc")
+value = 75.0
+rounded = true
+
+[node name="staminabar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "player stamina"
+theme = SubResource("Theme_6h42r")
+value = 75.0
+
+[node name="exhausted" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_bctt7")
+text = "concu chim"
+
+[node name="info" type="Label" parent="UI"]
+anchors_preset = -1
+anchor_top = 0.01
+anchor_right = 1.0
+anchor_bottom = 0.06
+offset_bottom = 26.0
+grow_horizontal = 2
+theme = SubResource("Theme_bctt7")
+text = "concu chim"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="pause" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.981
+anchor_top = 0.02
+anchor_right = 0.981
+anchor_bottom = 0.02
+offset_left = -33.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "▐▐"
+
+[node name="death_UI" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="Label" type="Label" parent="death_UI"]
+offset_top = 100.0
+offset_right = 1366.0
+offset_bottom = 191.0
+text = "u died lmao"
+label_settings = SubResource("LabelSettings_vxr47")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="death_UI"]
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.5
+anchor_right = 0.55
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -33.0
+offset_right = 38.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="try" type="Button" parent="death_UI/VBoxContainer"]
+layout_mode = 2
+text = "try again"
+
+[node name="quit" type="Button" parent="death_UI/VBoxContainer"]
+layout_mode = 2
+text = "quit"
+
+[node name="skill_panel" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="skill_panel"]
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.3
+anchor_right = 0.8
+anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="skill_panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "skill 1"
+label_settings = SubResource("LabelSettings_nixyl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_uawwg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="skill_panel/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "select"
+
+[node name="Panel2" type="Panel" parent="skill_panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+text = "skill 1"
+label_settings = SubResource("LabelSettings_nixyl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_uawwg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="skill_panel/HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "select"
+
+[node name="Panel3" type="Panel" parent="skill_panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="skill_panel/HBoxContainer/Panel3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+text = "skill 1"
+label_settings = SubResource("LabelSettings_nixyl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+label_settings = SubResource("LabelSettings_uawwg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="skill_panel/HBoxContainer/Panel3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "select"
+
+[node name="pause_menu" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="background" type="Polygon2D" parent="pause_menu"]
+position = Vector2(151, 82)
+color = Color(0.376471, 0.376471, 0.376471, 0.560784)
+polygon = PackedVector2Array(-822, -485, 1998, -666, 1939, 1309, -888, 1165)
+
+[node name="Label" type="Label" parent="pause_menu"]
+anchors_preset = -1
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.2
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "paused"
+label_settings = SubResource("LabelSettings_87pqk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu"]
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.5
+anchor_right = 0.55
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = -33.0
+offset_right = 58.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+text = "continue"
+
+[node name="Button2" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+text = "to main menu"
+
+[node name="foe_spawn_timer" type="Timer" parent="."]
+
+[node name="wave_start_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="speedbumpers" type="Node" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_6r5gv")
+autoplay = true

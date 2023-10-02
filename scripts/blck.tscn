@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxulq4dqfklbs"]
+
+[ext_resource type="Script" path="res://scripts/blck.gd" id="1_h8j5a"]
+[ext_resource type="Texture2D" uid="uid://dvh7ulosghhm5" path="res://imgs/speedbumpidk.png" id="1_ifqtg"]
+[ext_resource type="Texture2D" uid="uid://ms00oskxpk00" path="res://imgs/vision.png" id="2_bone5"]
+
+[node name="block" type="CharacterBody2D"]
+position = Vector2(1, 1)
+scale = Vector2(2, 2)
+motion_mode = 1
+script = ExtResource("1_h8j5a")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(-2.75, -3.75, -3.5, 3.75, 4, 3, 2.25, -2.75)
+
+[node name="Sprite2D2" type="Sprite2D" parent="CollisionPolygon2D2"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_ifqtg")
+
+[node name="PointLight2D" type="PointLight2D" parent="CollisionPolygon2D2"]
+color = Color(0.447059, 0.556863, 0.988235, 1)
+energy = 6.18
+texture = ExtResource("2_bone5")
+texture_scale = 0.03
+
+[node name="block_moving_timer" type="Timer" parent="."]
+one_shot = true
