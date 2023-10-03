@@ -400,7 +400,7 @@ text = "to main menu"
 [node name="foe_spawn_timer" type="Timer" parent="."]
 
 [node name="wave_start_timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 one_shot = true
 autostart = true
 

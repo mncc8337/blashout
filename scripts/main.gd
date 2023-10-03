@@ -19,11 +19,11 @@ var survived_time:float = 0
 @export var max_blue_thing_count:int = 8
 var blue_thing_count:int = 0
 
-@export var foe_spawn_delay:float = 1.5
+@export var foe_spawn_delay:float = 1.2
 var foe_spawned:int = 0
 var foe_killed:int = 0
 var foe_killed_total:int = 0
-var current_foe_count_max:int = 20
+var current_foe_count_max:int = 25
 var wave_count:int = 1
 
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
@@ -198,9 +198,9 @@ func spawn_foe():
 
 	var foe_class = rng.randi_range(0, 2)
 	if foe_class == FOE_CLASS.RANDOM:
-		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.5, 1)
-		foe_instance.SPEED = foe_speed_max * rng.randf_range(0.5, 1)
-		foe_instance.max_health = foe_health_max * rng.randf_range(0.5, 1)
+		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.7, 1)
+		foe_instance.SPEED = foe_speed_max * rng.randf_range(0.7, 1)
+		foe_instance.max_health = foe_health_max * rng.randf_range(0.7, 1)
 		foe_instance.attack_cooldown = foe_attack_cooldown_max * rng.randf_range(0.9, 1.1)
 	elif foe_class == FOE_CLASS.BIGASS:
 		foe_instance.attack_dmg = foe_attack_dmg_max * rng.randf_range(0.9, 2.0)
