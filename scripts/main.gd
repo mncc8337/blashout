@@ -25,6 +25,7 @@ var foe_killed:int = 0
 var foe_killed_total:int = 0
 var current_foe_count_max:int = 25
 var wave_count:int = 1
+# var speed_boost:bool = false
 
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
 enum SKILL {CAT_EYES, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, RECKLESS, TOMB_RAIDER, EARTH_QUAKE, WITCH}
@@ -43,7 +44,7 @@ func fetch_skill(skill):
 	var info = ["skill name", "skill description"]
 	if skill == SKILL.CAT_EYES:
 		info[0] = "cat eyes"
-		info[1] = "increase your base vision by 10%"
+		info[1] = "increase your base vision by 5%"
 	elif skill == SKILL.STRONGER_LIGHT:
 		info[0] = "stronger light"
 		info[1] = "increase your damage to ghost by 5%"
@@ -73,9 +74,9 @@ func fetch_skill(skill):
 
 func apply_skill(skill):
 	if skill == SKILL.CAT_EYES:
-		$player.get_node("vision").texture_scale *= 1.1
-		if $player.get_node("vision").texture_scale >= 15:
-			$player.get_node("vision").texture_scale = 15
+		$player.get_node("vision").texture_scale *= 1.05
+		if $player.get_node("vision").texture_scale >= 5:
+			$player.get_node("vision").texture_scale = 5
 			skilllist.erase(SKILL.CAT_EYES)
 	elif skill == SKILL.STRONGER_LIGHT:
 		$player.max_attack_dmg *= 1.05
@@ -231,8 +232,9 @@ func spawn_blue_thing():
 	$foes.add_child(instance)
 
 func new_wave():
+	# speed_boost = false
 	wave_count += 1
-	if wave_count % 5 == 0 and blue_thing_count < max_blue_thing_count:
+	if wave_count % 3 == 0 and blue_thing_count < max_blue_thing_count and wave_count > 3:
 		spawn_blue_thing()
 		blue_thing_count += 1
 	foe_killed = 0
@@ -263,6 +265,12 @@ func _process(delta):
 			current_foe_count_max += 1
 		return
 	
+	# speed boost all ghost if alive <= 10
+	# if wave_count > 2:
+	#	if foe_spawned - foe_killed <= 10:
+	#		for foe in $foes.get_children():
+	#			foe.SPEED *= 2
+	
 	$UI/info2.text = "wave %d\n%d ghosts killed" % [wave_count, foe_killed_total]
 	
 	if !$wave_start_timer.is_stopped():
@@ -273,7 +281,7 @@ func _process(delta):
 	if foe_killed == current_foe_count_max:
 		new_wave()
 	
-	if foe_killed_total == skill_goal:
+	if foe_killed_total >= skill_goal:
 		skill_goal += 20
 		get_tree().paused = true
 		
