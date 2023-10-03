@@ -57,7 +57,7 @@ func receive_damage(damage):
 		die_proc()
 
 func _process(delta):
-	# $healthbar.visible = health < max_health
+	$healthbar.visible = health < max_health
 	$healthbar.value = health
 
 func _physics_process(delta):
