@@ -51,7 +51,7 @@ func receive_damage(damage):
 	if is_in_group("foe"):
 		health -= damage
 	else:
-		health -= 0.05
+		health -= 0.03
 	if health <= 0:
 		die = true
 		die_proc()
