@@ -1,11 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=21 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="5_lssb2"]
 [ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
-[ext_resource type="PackedScene" uid="uid://bxulq4dqfklbs" path="res://scenes/orb.tscn" id="6_sfb4o"]
 [ext_resource type="AudioStream" uid="uid://bsxu5tqbk4hmt" path="res://sfx/storm.mp3" id="7_g4lc1"]
 [ext_resource type="Theme" uid="uid://c0nltyktuyg0j" path="res://button_theme.tres" id="7_iaru5"]
 [ext_resource type="AudioStream" uid="uid://y2vljcxi556g" path="res://sfx/selection.wav" id="8_wbf00"]
@@ -55,8 +54,9 @@ font_size = 18
 [sub_resource type="LabelSettings" id="LabelSettings_87pqk"]
 font_size = 64
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_s6gpx")
+player = NodePath("player")
 
 [node name="background" type="Polygon2D" parent="."]
 position = Vector2(151, 82)
@@ -112,12 +112,11 @@ color = Color(0, 0, 0, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(683, 384)
 
+[node name="graves" type="Node" parent="."]
+
 [node name="foes" type="Node" parent="."]
 
-[node name="block" parent="foes" instance=ExtResource("6_sfb4o")]
-position = Vector2(431, 580)
-
-[node name="graves" type="Node" parent="."]
+[node name="orbs" type="Node" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -419,3 +418,5 @@ autoplay = true
 stream = ExtResource("8_wbf00")
 volume_db = -17.775
 pitch_scale = 0.97
+
+[connection signal="died" from="player" to="." method="_on_player_died"]

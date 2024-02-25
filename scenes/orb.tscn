@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxulq4dqfklbs"]
 
-[ext_resource type="Script" path="res://scripts/blck.gd" id="1_ljo0g"]
+[ext_resource type="Script" path="res://scripts/orb.gd" id="1_elnp5"]
 [ext_resource type="Texture2D" uid="uid://bq10yjdcim2m" path="res://imgs/blur_light.png" id="2_qj3rc"]
 
 [node name="orb" type="Area2D"]
 position = Vector2(1, 1)
 scale = Vector2(2, 2)
-script = ExtResource("1_ljo0g")
+script = ExtResource("1_elnp5")
 
 [node name="shape" type="Node2D" parent="."]
 

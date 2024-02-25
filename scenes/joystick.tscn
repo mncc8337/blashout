@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvx2mdsvgim6t"]
+
+[ext_resource type="Script" path="res://scripts/joystick.gd" id="1_k5g4x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2tybf"]
+radius = 91.1
+
+[node name="joystick" type="TouchScreenButton"]
+position = Vector2(626, 370)
+shape = SubResource("CircleShape2D_2tybf")
+script = ExtResource("1_k5g4x")
+
+[node name="housing" type="Polygon2D" parent="."]
+color = Color(0.227451, 0.227451, 0.227451, 0.631373)
+polygon = PackedVector2Array(-90.99, 0, -87.94, -23.53, -78.965, -45.385, -64.335, -64.37, -45.545, -79.045, -23.33, -87.905, 0, -90.975, 24, -88, 46, -79, 65, -64, 79, -45, 88, -24, 91, 0, 88, 24, 79, 46, 64, 65, 46, 79, 23, 88, 0, 91, -23, 88, -46, 79, -65, 64, -79, 46, -88, 23)
+
+[node name="numb" type="Polygon2D" parent="."]
+scale = Vector2(0.32, 0.32)
+polygon = PackedVector2Array(-90.99, 0, -87.94, -23.53, -78.965, -45.385, -64.335, -64.37, -45.545, -79.045, -23.33, -87.905, 0, -90.975, 24, -88, 46, -79, 65, -64, 79, -45, 88, -24, 91, 0, 88, 24, 79, 46, 64, 65, 46, 79, 23, 88, 0, 91, -23, 88, -46, 79, -65, 64, -79, 46, -88, 23)
+
+[connection signal="released" from="." to="." method="_on_released"]

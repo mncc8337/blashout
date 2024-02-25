@@ -70,5 +70,5 @@ func _physics_process(delta):
 	# after move check if can attack
 	if $attack_cooldown.is_stopped():
 		if a_direction.dot(a_direction) < sqr_attack_range:
-			player.someone_attack_me_help.emit(attack_dmg)
+			player.deal_dmg(attack_dmg)
 			$attack_cooldown.start()

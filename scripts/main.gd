@@ -1,12 +1,10 @@
 extends Node2D
 
-signal died
-
 var rng = RandomNumberGenerator.new()
 
 @onready var foe_model   = preload("res://scenes/foe.tscn")
 @onready var grave_model = preload("res://scenes/grave.tscn")
-@onready var orb_model  = preload("res://scenes/orb.tscn")
+@onready var orb_model   = preload("res://scenes/orb.tscn")
 
 var foe_attack_dmg_max: float      = 10
 var foe_speed_max: float           = 1300.0
@@ -25,15 +23,16 @@ var foe_killed_total: int          = 0
 var current_foe_count_max: int     = 25
 var wave_count: int                = 1
 
-@onready var player_vision        = $player.get_node("vision")
-@onready var player_flashlight    = $player.get_node("flashlight")
-@onready var player_healing_timer = $player.get_node("healing_timer")
+@export var player: CharacterBody2D
+@onready var player_vision        = player.get_node("vision")
+@onready var player_flashlight    = player.get_node("flashlight")
+@onready var player_healing_timer = player.get_node("healing_timer")
 
 enum FOE_CLASS {RANDOM, BIGASS, ROACH}
 enum SKILL {CAT_EYES, STRONGER_LIGHT, LARGER_LIGHT, RUNNER, MEDIC, RECKLESS, TOMB_RAIDER, EARTH_QUAKE, WITCH}
 
 var skilllist = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-var skill_goal: int = 25
+var skill_goal: int = 20
 
 @onready var panel1_label = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label
 @onready var panel1_desc  = $skill_panel/HBoxContainer/Panel/VBoxContainer/Label2
@@ -136,7 +135,6 @@ func _ready():
 	$pause_menu/VBoxContainer/Button.button_down.connect(unpause_game)
 	$pause_menu/VBoxContainer/Button2.button_down.connect(to_main_menu)
 	
-	died.connect(show_death_screen)
 	$death_UI/VBoxContainer/try.button_down.connect(replay)
 	$death_UI/VBoxContainer/quit.button_down.connect(to_main_menu)
 	
@@ -200,7 +198,7 @@ func spawn_foe():
 	if foe_spawned == current_foe_count_max:
 		$foe_spawn_timer.stop()
 
-func show_death_screen():
+func _on_player_died():
 	get_tree().paused = true
 	
 	var m = int(survived_time / 60); survived_time -= m * 60;
@@ -217,14 +215,21 @@ func replay():
 
 func spawn_orb():
 	var instance = orb_model.instantiate()
-	instance.position = Vector2(rng.randf_range(0, 1300), rng.randf_range(0, 700))
-	$foes.add_child(instance)
+	instance.position = player.position * rng.randf_range(-1, 1)
+	
+	instance.position.x = clamp(instance.position.x, 0, 1300)
+	instance.position.y = clamp(instance.position.y, 0, 700)
+	
+	$orbs.add_child(instance)
+	orb_count += 1
 
 func new_wave():
 	wave_count += 1
-	if wave_count % 3 == 0 and orb_count < max_orb_count and wave_count > 3:
+
+	# spawn every 3 waves
+	if wave_count % 3 == 0 and orb_count <= max_orb_count:
 		spawn_orb()
-		orb_count += 1
+
 	foe_killed = 0
 	foe_spawned = 0
 	increase_diff()

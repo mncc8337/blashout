@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var main = get_tree().get_root().get_node("main")
 
-signal someone_attack_me_help(damage)
+signal died
 const FRICTION = 0.1
 
 var viewport
@@ -31,7 +31,6 @@ func _ready():
 	camera = viewport.get_camera_2d()
 	
 	attack_dmg = max_attack_dmg / $flashlight.get_child_count()
-	someone_attack_me_help.connect(on_being_attacked)
 	$healing_timer.wait_time = healing_time
 	$healing_timer.timeout.connect(heal)
 
@@ -47,10 +46,10 @@ func walking_sound():
 func heal():
 	health = clamp(health * 1.05, 0, max_health)
 
-func on_being_attacked(damage):
+func deal_dmg(damage):
 	health -= damage
 	if health <= 0:
-		$"../../main".died.emit()
+		died.emit()
 
 func _physics_process(delta):
 	if health <= 0: return
