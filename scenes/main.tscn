@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://l0v0ojsdp6s8"]
+[gd_scene load_steps=22 format=3 uid="uid://l0v0ojsdp6s8"]
 
 [ext_resource type="PackedScene" uid="uid://cs0scqiespkx4" path="res://scenes/player.tscn" id="1_ir80p"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_s6gpx"]
 [ext_resource type="PackedScene" uid="uid://biy8681uytdb" path="res://scenes/wall.tscn" id="2_222mk"]
 [ext_resource type="Texture2D" uid="uid://cdooesvmbynoj" path="res://imgs/wall_side1.png" id="5_lssb2"]
 [ext_resource type="Texture2D" uid="uid://d0blrbje4c5qd" path="res://imgs/wall.png" id="6_5xogt"]
+[ext_resource type="PackedScene" uid="uid://bvx2mdsvgim6t" path="res://scenes/joystick.tscn" id="6_bv1py"]
 [ext_resource type="AudioStream" uid="uid://bsxu5tqbk4hmt" path="res://sfx/storm.mp3" id="7_g4lc1"]
 [ext_resource type="Theme" uid="uid://c0nltyktuyg0j" path="res://button_theme.tres" id="7_iaru5"]
 [ext_resource type="AudioStream" uid="uid://y2vljcxi556g" path="res://sfx/selection.wav" id="8_wbf00"]
@@ -63,8 +64,11 @@ position = Vector2(151, 82)
 color = Color(0.184314, 0.184314, 0.184314, 1)
 polygon = PackedVector2Array(-822, -485, 1998, -666, 1939, 1309, -888, 1165)
 
-[node name="player" parent="." instance=ExtResource("1_ir80p")]
+[node name="player" parent="." node_paths=PackedStringArray("move_joystick", "dir_joystick", "main") instance=ExtResource("1_ir80p")]
 position = Vector2(683, 384)
+move_joystick = NodePath("../joysticks/move")
+dir_joystick = NodePath("../joysticks/point")
+main = NodePath("..")
 
 [node name="walls" type="Node2D" parent="."]
 scale = Vector2(1.00136, 0.998738)
@@ -186,6 +190,14 @@ offset_left = -33.0
 offset_bottom = 31.0
 grow_horizontal = 0
 text = "▐▐"
+
+[node name="joysticks" type="CanvasLayer" parent="."]
+
+[node name="move" parent="joysticks" instance=ExtResource("6_bv1py")]
+position = Vector2(193, 590)
+
+[node name="point" parent="joysticks" instance=ExtResource("6_bv1py")]
+position = Vector2(1150, 590)
 
 [node name="death_UI" type="CanvasLayer" parent="."]
 process_mode = 2

@@ -12,6 +12,7 @@ var foe_health_max: float          = 100
 var foe_attack_cooldown_max: float = 1.5
 
 var survived_time: float = 0
+var mobile = false
 
 @export var max_orb_count: int = 8
 var orb_count: int             = 0
@@ -128,6 +129,11 @@ func to_main_menu():
 	get_tree().change_scene_to_file("res://scenes/mainmenu.tscn")
 
 func _ready():
+	# identify platform
+	if OS.get_name() == "Android" or OS.has_feature("web_android"):
+		$joysticks.show()
+		mobile = true
+	
 	$foe_spawn_timer.wait_time = foe_spawn_delay
 	$foe_spawn_timer.timeout.connect(spawn_foe)
 
@@ -215,7 +221,7 @@ func replay():
 
 func spawn_orb():
 	var instance = orb_model.instantiate()
-	instance.position = player.position * rng.randf_range(-1, 1)
+	instance.position = player.position + Vector2(1 ,1) * rng.randf_range(-1, 1) * 300
 	
 	instance.position.x = clamp(instance.position.x, 0, 1300)
 	instance.position.y = clamp(instance.position.y, 0, 700)

@@ -1,14 +1,17 @@
 extends CharacterBody2D
-@onready var main = get_tree().get_root().get_node("main")
 
 signal died
 const FRICTION = 0.1
 
-var viewport
-var camera
+@onready var viewport = get_viewport()
+@onready var camera = viewport.get_camera_2d()
 
 var current_dir = Vector2(1, 0)
 var is_running = false
+
+@export var move_joystick: TouchScreenButton
+@export var dir_joystick:  TouchScreenButton
+@export var main: Node
 
 @export var SPEED: float          = 600.0
 @export var audio_stream: AudioStream
@@ -26,9 +29,6 @@ var tomb_raider: bool = false
 func _ready():
 	health = max_health
 	stamina = max_stamina
-	
-	viewport = get_viewport()
-	camera = viewport.get_camera_2d()
 	
 	attack_dmg = max_attack_dmg / $flashlight.get_child_count()
 	$healing_timer.wait_time = healing_time
@@ -51,50 +51,7 @@ func deal_dmg(damage):
 	if health <= 0:
 		died.emit()
 
-func _physics_process(delta):
-	if health <= 0: return
-
-	var dir = Vector2.ZERO
-	var speed_multiplier = 1
-	if Input.is_action_pressed("up"):
-		dir += Vector2(0, -1)
-	if Input.is_action_pressed("down"):
-		dir += Vector2(0, 1)
-	if Input.is_action_pressed("left"):
-		dir += Vector2(-1, 0)
-	if Input.is_action_pressed("right"):
-		dir += Vector2(1, 0)
-	is_running = Input.is_action_pressed("run")
-	dir = dir.normalized()
-	
-	if is_exhausted:
-		is_running = false
-		speed_multiplier = clamp((stamina + 10) / max_stamina, 0, 1)
-	if is_running:
-		speed_multiplier = 3 + stamina / max_stamina * 2
-	velocity += dir.normalized() * SPEED * speed_multiplier * delta
-
-	if dir == Vector2.ZERO or speed_multiplier < 0.5:
-		if stamina < max_stamina:
-			stamina = clamp(stamina + 0.25, 0, max_stamina)
-		else:
-			is_exhausted = false
-	if is_running and dir != Vector2.ZERO:
-		if stamina > 0:
-			stamina -= 0.5
-		else:
-			is_exhausted = true
-			stamina = 0
-		
-	if dir == Vector2.ZERO or !is_running or furious:
-		var rat = (viewport.get_size() * 1.0 - Vector2(1366, 768))
-		look_at(viewport.get_mouse_position() - rat / 2) # idk why but it works lol
-	else:
-		current_dir = current_dir.lerp(dir, 0.5)
-		look_at(current_dir + position)
-	rotation += PI
-	
-	# after rotate, check if can attack
+func check_attack():
 	for ray in $flashlight.get_children():
 		var objects_collide = []
 		while ray.is_colliding():
@@ -114,6 +71,34 @@ func _physics_process(delta):
 			obj.being_attacked.emit(attack_dmg * dmg_multiplier)
 			ray.remove_exception(obj)
 			dmg_multiplier *= 0.9
+
+func _physics_process(delta):
+	if health <= 0: return
+
+	var dir = Vector2.ZERO
+	var speed_multiplier = 1
+	
+	if not main.mobile:
+		if Input.is_action_pressed("up"):
+			dir += Vector2(0, -1)
+		if Input.is_action_pressed("down"):
+			dir += Vector2(0, 1)
+		if Input.is_action_pressed("left"):
+			dir += Vector2(-1, 0)
+		if Input.is_action_pressed("right"):
+			dir += Vector2(1, 0)
+		dir = dir.normalized()
+	elif move_joystick.is_pressed():
+		dir = move_joystick.direction
+	
+	is_running = Input.is_action_pressed("run")
+	
+	if is_exhausted:
+		is_running = false
+		speed_multiplier = clamp((stamina + 10) / max_stamina, 0, 1)
+	if is_running:
+		speed_multiplier = 3 + stamina / max_stamina * 2
+	velocity += dir * SPEED * speed_multiplier * delta
 	
 	$walksound_delay.wait_time = clamp(1 / speed_multiplier * 0.4, 0, 1.5)
 	if dir != Vector2.ZERO:
@@ -124,3 +109,35 @@ func _physics_process(delta):
 	velocity *= 1 - FRICTION
 
 	move_and_slide()
+
+	# stamina
+	if dir == Vector2.ZERO or speed_multiplier < 0.5:
+		if stamina < max_stamina:
+			stamina = clamp(stamina + 0.25, 0, max_stamina)
+		else:
+			is_exhausted = false
+	if is_running and dir != Vector2.ZERO:
+		if stamina > 0:
+			stamina -= 0.5
+		else:
+			is_exhausted = true
+			stamina = 0
+	
+	if not main.mobile:
+		if dir == Vector2.ZERO or !is_running or furious:
+			var rat = (viewport.get_size() * 1.0 - Vector2(1366, 768))
+			look_at(viewport.get_mouse_position() - rat / 2) # idk why but it works lol
+		else:
+			current_dir = current_dir.lerp(dir, 0.5)
+			look_at(current_dir + position)
+		rotation += PI
+	elif dir_joystick.is_pressed():
+		var d = dir_joystick.direction.normalized()
+		if d.y < 0:
+			rotation = -acos(d.x)
+		else:
+			rotation = acos(d.x)
+		rotation += PI
+
+	# after rotate, check if can attack	
+	check_attack()
