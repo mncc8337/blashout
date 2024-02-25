@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c31bh1w8kn4v"
-path="res://.godot/imported/cl_blu_ghost.wav-3c9c945c0c585b1c8cd68bb671253f45.sample"
+path="res://.godot/imported/grave_spawn.wav-225277228694ca03bd2493e457a072a5.sample"
 
 [deps]
 
-source_file="res://sfx/cl_blu_ghost.wav"
-dest_files=["res://.godot/imported/cl_blu_ghost.wav-3c9c945c0c585b1c8cd68bb671253f45.sample"]
+source_file="res://sfx/grave_spawn.wav"
+dest_files=["res://.godot/imported/grave_spawn.wav-225277228694ca03bd2493e457a072a5.sample"]
 
 [params]
 

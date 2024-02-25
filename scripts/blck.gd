@@ -7,7 +7,7 @@ var new_pos
 func _ready():
 	new_pos = position
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	$block_moving_timer.wait_time = block_moving_delay
 	if $block_moving_timer.is_stopped():
 		new_pos = position

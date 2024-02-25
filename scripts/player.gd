@@ -10,18 +10,18 @@ var camera
 var current_dir = Vector2(1, 0)
 var is_running = false
 
-@export var SPEED:float = 600.0
+@export var SPEED: float          = 600.0
 @export var audio_stream: AudioStream
-@export var max_attack_dmg:float = 10
-@export var healing_time:float = 20
-@export var max_health:float = 100
-@export var max_stamina:float = 100
-var attack_dmg:float
-var health:float = 100
-var stamina:float = 100
-var is_exhausted = false
-var furious:bool = false
-var tomb_raider:bool = false
+@export var max_attack_dmg: float = 10
+@export var healing_time: float   = 20
+@export var max_health: float     = 100
+@export var max_stamina: float    = 100
+var attack_dmg: float
+var health: float     = 100
+var stamina: float    = 100
+var is_exhausted      = false
+var furious: bool     = false
+var tomb_raider: bool = false
 
 func _ready():
 	health = max_health
@@ -80,7 +80,7 @@ func _physics_process(delta):
 			stamina = clamp(stamina + 0.25, 0, max_stamina)
 		else:
 			is_exhausted = false
-	if is_running and dir != Vector2.ZERO and !main.demo_scene:
+	if is_running and dir != Vector2.ZERO:
 		if stamina > 0:
 			stamina -= 0.5
 		else:

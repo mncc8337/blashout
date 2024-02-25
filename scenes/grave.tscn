@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bc2yqyeynwtq4"]
 
 [ext_resource type="Script" path="res://scripts/foe.gd" id="1_4xd2n"]
-[ext_resource type="AudioStream" uid="uid://c31bh1w8kn4v" path="res://sfx/cl_blu_ghost.wav" id="2_1wf67"]
+[ext_resource type="AudioStream" uid="uid://c31bh1w8kn4v" path="res://sfx/grave_spawn.wav" id="2_inwat"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_p1j4g"]
 cull_mode = 2
@@ -190,6 +190,6 @@ libraries = {
 }
 
 [node name="die_sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_1wf67")
+stream = ExtResource("2_inwat")
 volume_db = -21.926
 pitch_scale = 2.59

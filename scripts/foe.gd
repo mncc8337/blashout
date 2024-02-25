@@ -56,7 +56,7 @@ func receive_damage(damage):
 		die = true
 		die_proc()
 
-func _process(delta):
+func _process(_delta):
 	$healthbar.visible = health < max_health
 	$healthbar.value = health
 
