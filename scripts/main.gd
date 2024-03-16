@@ -131,7 +131,7 @@ func to_main_menu():
 func _ready():
 	# identify platform
 	if OS.get_name() == "Android" or OS.has_feature("web_android"):
-		$joysticks.show()
+		$phone_ui.show()
 		mobile = true
 	
 	$foe_spawn_timer.wait_time = foe_spawn_delay

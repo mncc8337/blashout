@@ -116,3 +116,6 @@ text = "quit"
 [node name="bgm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_okyuk")
 autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(683, 384)

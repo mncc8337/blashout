@@ -131,12 +131,16 @@ func _physics_process(delta):
 			current_dir = current_dir.lerp(dir, 0.5)
 			look_at(current_dir + position)
 		rotation += PI
-	elif dir_joystick.is_pressed():
-		var d = dir_joystick.direction.normalized()
-		if d.y < 0:
-			rotation = -acos(d.x)
+	else:
+		if dir == Vector2.ZERO or !is_running or furious:
+			var d = dir_joystick.direction
+			if d.y < 0:
+				rotation = -acos(d.x)
+			else:
+				rotation = acos(d.x)
 		else:
-			rotation = acos(d.x)
+			current_dir = current_dir.lerp(dir, 0.5)
+			look_at(current_dir + position)
 		rotation += PI
 
 	# after rotate, check if can attack	
